@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "backend"
+    },
+    {
+      "path": "frontend"
+    }
+  ],
+  "settings": {
+    "yaml.schemas": {
+      "https://json.schemastore.org/github-workflow.json": "file:///home/wataru/web/jphack/WebSocket-Sample/.github/workflow/deploy.yml"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [
+    {
+      "env": {
+        "node": true
+      },
+      "files": [".eslintrc.{js,cjs}"],
+      "parserOptions": {
+        "sourceType": "script"
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["eslint-plugin-unused-imports"],
+  "rules": { "unused-imports/no-unused-imports": "error" }
+}
