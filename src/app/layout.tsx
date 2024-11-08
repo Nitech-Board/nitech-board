@@ -1,5 +1,6 @@
 import Header from "@/components/Header/Header";
 import type { Metadata } from "next";
+import "@/styles/global.css";
 
 export const metadata: Metadata = {
   title: "websocket sample",
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-      <Header />
+        <Header />
         {children}
       </body>
     </html>
