@@ -1,4 +1,4 @@
-export interface classSummary {
+export interface ClassSummary {
   classNumber: string;
   name: string;
 }

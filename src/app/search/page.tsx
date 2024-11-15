@@ -3,17 +3,19 @@
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
-import { classSummary } from "../types/class";
+import { ClassSummary } from "../types/class";
 
 export default function WebSocketPage() {
   const [courseNumber, setCourseNumber] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [classList, setClassList] = useState<classSummary[]>([]);
+  const [classList, setClassList] = useState<ClassSummary[]>([]);
+  const [searchResults, setSearchResults] = useState<ClassSummary[]>([]);
 
   useEffect(() => {
     fetch("/api/class-list")
       .then((res) => res.json())
-      .then((data) => setClassList(data.classList));
+      .then((data) => {
+        setClassList(data);
+      });
   }, []);
 
   const handleInputChange = (e) => setCourseNumber(e.target.value);
