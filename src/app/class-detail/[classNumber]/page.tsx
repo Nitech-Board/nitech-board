@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import ClassData from "../../../components/class-detail/ClassData";
+import { useParams, useRouter } from "next/navigation";
 
 interface ClassData {
   num: string;
@@ -12,11 +12,11 @@ interface ClassData {
 }
 
 export default function ClassDetailPage() {
-  const pathname = usePathname();
   const [classData, setClassData] = useState<ClassData | undefined>();
+  const router = useRouter();
 
   // URLパスから授業番号を抽出
-  const courseNumber = pathname.split("/").pop();
+  const { classNumber } = useParams();
 
   useEffect(() => {
     const courses = [
@@ -40,12 +40,15 @@ export default function ClassDetailPage() {
       },
     ];
 
-    const courseDetail = courses.find((course) => course.num === courseNumber);
+    console.log(classNumber);
+
+    const courseDetail = courses.find((course) => course.num === classNumber);
     setClassData(courseDetail);
-  }, [courseNumber]);
+  }, [classNumber]);
+
   // 投稿ボタンが押された時に呼ばれる関数
   const handleAddReview = () => {
-    window.location.href = "../review"; // 遷移先のURL
+    router.push(`/review/${classNumber}`);
   };
 
   if (!classData) return <p>授業情報が見つかりません。</p>;
