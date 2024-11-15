@@ -3,8 +3,7 @@ export const SearchResultItem = ({ result }) => {
 
   return (
     <li>
-      {/* <a href={ここに飛ぶページへのパス}>{`${num}：${name}`}</a>*/}
-      <p>{`${num}：${name}`}</p>
+      <a href={`/class-detail/${num}`}>{`${num}：${name}`}</a>
     </li>
   );
 };

@@ -1,6 +1,6 @@
-import Header from "@/components/Header/Header";
+import Header from "../components/Header/Header";
 import type { Metadata } from "next";
-import "@/styles/global.css";
+import "../styles/global.css";
 
 export const metadata: Metadata = {
   title: "websocket sample",
