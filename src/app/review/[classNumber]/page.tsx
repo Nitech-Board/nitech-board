@@ -1,8 +1,8 @@
 "use client"; //chatGPTに聞いた。これがないとなぜかコンパイルエラー。
 
 import { useState } from "react";
-import { RatingInput } from "../../components/Review/RatingInput";
-import { TextInput } from "../../components/Review/TextInput";
+import { RatingInput } from "../../../components/Review/RatingInput";
+import { TextInput } from "../../../components/Review/TextInput";
 import { useRouter } from "next/navigation";
 
 export default function WebSocketPage() {
