@@ -1,7 +1,6 @@
 import Header from "../components/Header/Header";
 import type { Metadata } from "next";
 import "../styles/global.css";
-//BrowserRouterを使うためにimportした。あまり意味が分からない。
 
 export const metadata: Metadata = {
   title: "websocket sample",
