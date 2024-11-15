@@ -25,6 +25,9 @@ const ClassData: React.FC<ClassDataProps> = ({ details }) => {
       <p>
         <strong>講義室:</strong> {details.location}
       </p>
+      <p>
+        <strong>シラバス：</strong>リンクを付ける？？
+      </p>
     </div>
   );
 };
