@@ -10,6 +10,7 @@ export default function WebSocketPage() {
   const [classList, setClassList] = useState<ClassSummary[]>([]);
   const [searchResults, setSearchResults] = useState<ClassSummary[]>([]);
 
+  // 初期表示時に授業一覧を取得（バックエンドAPIを通してデータを取得する）
   useEffect(() => {
     fetch("/api/class-list")
       .then((res) => res.json())
@@ -20,11 +21,13 @@ export default function WebSocketPage() {
 
   const handleInputChange = (e) => setCourseNumber(e.target.value);
 
+  // 検索ボタン押下時の処理
   const handleSearch = () => {
     const results = funcSearch(courseNumber);
     setSearchResults(results);
   };
 
+  // 検索処理
   const funcSearch = (courseNumber) => {
     return classList.filter((classSummary) =>
       classSummary.classNumber.includes(courseNumber)
