@@ -1,27 +1,37 @@
-"use client"; //chatGPTに聞いた。これがないとなぜかコンパイルエラー。
+"use client";
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
-
-const funcSearch = (courseNumber) => {
-  const courses = [
-    { num: "7262", name: "パターン認識" },
-    { num: "8151", name: "人工知能" },
-    { num: "9123", name: "コンピュータビジョン" },
-  ]; //course配列にすべてのnumと授業名のデータが欲しい。
-  return courses.filter((course) => course.num.includes(courseNumber));
-};
+import { ClassSummary } from "../types/class";
 
 export default function WebSocketPage() {
   const [courseNumber, setCourseNumber] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [classList, setClassList] = useState<ClassSummary[]>([]);
+  const [searchResults, setSearchResults] = useState<ClassSummary[]>([]);
+
+  // 初期表示時に授業一覧を取得（バックエンドAPIを通してデータを取得する）
+  useEffect(() => {
+    fetch("/api/class-list")
+      .then((res) => res.json())
+      .then((data) => {
+        setClassList(data);
+      });
+  }, []);
 
   const handleInputChange = (e) => setCourseNumber(e.target.value);
 
+  // 検索ボタン押下時の処理
   const handleSearch = () => {
-    const results = funcSearch(courseNumber); //funcSearchは授業番号から授業を返す。backendで作ってもらう。
+    const results = funcSearch(courseNumber);
     setSearchResults(results);
+  };
+
+  // 検索処理
+  const funcSearch = (courseNumber) => {
+    return classList.filter((classSummary) =>
+      classSummary.classNumber.includes(courseNumber)
+    );
   };
 
   return (
