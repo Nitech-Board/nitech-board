@@ -7,16 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "prisma generate && prisma db push"
+    "generate": "prisma generate && prisma db push",
+    "seed": "tsx ./prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@mui/material": "^6.1.8",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.0.0",
     "@vercel/postgres": "^0.10.0",
+    "cuid": "^3.0.0",
     "next": "14.2.15",
-    "prisma": "^5.22.0",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.80.3",
@@ -33,8 +34,10 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unused-imports": "^4.1.4",
     "prettier": "^3.3.3",
+    "prisma": "^6.0.0",
     "stylelint": "^16.9.0",
     "stylelint-config-recess-order": "^5.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
