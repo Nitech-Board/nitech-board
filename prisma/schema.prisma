@@ -9,6 +9,37 @@ datasource db {
 }
 
 model student {
-  id             Int @id @default(autoincrement())
-  enrollmentYear Int @map("enrollment_year")
+  id             String   @id @default(cuid())
+  name           String
+  enrollmentYear Int      @map("enrollment_year")
+  review         review[]
+}
+
+model teacher {
+  id     String   @id @default(cuid())
+  name   String
+  course course[]
+}
+
+model course {
+  id        String   @id @default(cuid())
+  title     String
+  teacherId String   @map("teacher_id")
+  teacher   teacher  @relation(fields: [teacherId], references: [id])
+  review    review[]
+}
+
+model review {
+  id        String  @id @default(cuid())
+  courseId  String  @map("course_id")
+  course    course  @relation(fields: [courseId], references: [id])
+  studentId String  @map("student_id")
+  student   student @relation(fields: [studentId], references: [id])
+
+  homeworkRating   Int    @map("homework_rating")
+  difficultyRating Int    @map("difficulty_rating")
+  examRating       Int    @map("exam_rating")
+  note             String
+
+  createdAt DateTime @default(now())
 }
