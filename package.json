@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "prisma generate && prisma db push"
+    "generate": "prisma generate && prisma db push",
+    "seed": "tsx ./prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.13.5",
@@ -15,6 +16,7 @@
     "@mui/material": "^6.1.8",
     "@prisma/client": "^6.0.0",
     "@vercel/postgres": "^0.10.0",
+    "cuid": "^3.0.0",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
@@ -35,6 +37,7 @@
     "prisma": "^6.0.0",
     "stylelint": "^16.9.0",
     "stylelint-config-recess-order": "^5.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
