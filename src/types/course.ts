@@ -1,7 +1,7 @@
 import { Course, CourseNumber } from "@prisma/client";
 
-export interface ClassSummary {
-  classNumber: string;
+export interface CourseSummary {
+  courseNumber: string;
   name: string;
 }
 

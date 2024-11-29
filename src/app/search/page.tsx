@@ -3,19 +3,19 @@
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
-import { ClassSummary } from "../../types/course";
+import { CourseSummary } from "../../types/course";
 
 export default function WebSocketPage() {
   const [courseNumber, setCourseNumber] = useState("");
-  const [classList, setClassList] = useState<ClassSummary[]>([]);
-  const [searchResults, setSearchResults] = useState<ClassSummary[]>([]);
+  const [courseList, setCourseList] = useState<CourseSummary[]>([]);
+  const [searchResults, setSearchResults] = useState<CourseSummary[]>([]);
 
   // 初期表示時に授業一覧を取得（バックエンドAPIを通してデータを取得する）
   useEffect(() => {
-    fetch("/api/class-list")
+    fetch("/api/course-list")
       .then((res) => res.json())
       .then((data) => {
-        setClassList(data);
+        setCourseList(data);
       });
   }, []);
 
@@ -29,8 +29,8 @@ export default function WebSocketPage() {
 
   // 検索処理
   const funcSearch = (courseNumber) => {
-    return classList.filter((classSummary) =>
-      classSummary.classNumber.includes(courseNumber)
+    return courseList.filter((courseSummary) =>
+      courseSummary.courseNumber.includes(courseNumber)
     );
   };
 
