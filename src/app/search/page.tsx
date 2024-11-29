@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
-import { ClassSummary } from "../types/class";
+import { ClassSummary } from "../../types/course";
 
 export default function WebSocketPage() {
   const [courseNumber, setCourseNumber] = useState("");

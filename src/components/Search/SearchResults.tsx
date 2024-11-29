@@ -1,4 +1,4 @@
-import { ClassSummary } from "../../app/types/class";
+import { ClassSummary } from "../../types/course";
 import { SearchResultItem } from "./SearchResultItem";
 
 export const SearchResults = ({ results }: { results: ClassSummary[] }) => {

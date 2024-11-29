@@ -8,51 +8,53 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model student {
+model Student {
   id             String   @id @default(cuid())
   name           String
   enrollmentYear Int      @map("enrollment_year")
-  reviews        review[]
+  reviews        Review[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
-model teacher {
+model Teacher {
   id        String   @id @default(cuid())
   firstName String   @map("first_name")
   lastName  String   @map("last_name")
-  courses   course[]
+  courses   Course[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
-model course {
-  id            String          @id @default(cuid())
+model Course {
+  id            String         @id @default(cuid())
   title         String
-  teacherId     String          @map("teacher_id")
-  teacher       teacher         @relation(fields: [teacherId], references: [id])
-  courseNumbers course_number[]
-  reviews       review[]
+  teacherId     String         @map("teacher_id")
+  teacher       Teacher        @relation(fields: [teacherId], references: [id])
+  courseNumbers CourseNumber[]
+  reviews       Review[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
-model course_number {
+model CourseNumber {
   id       String  @id @default(cuid())
   number   String
-  course   course? @relation(fields: [courseId], references: [id])
+  course   Course? @relation(fields: [courseId], references: [id])
   courseId String? @map("course_id")
+
+  @@map("course_number")
 }
 
-model review {
+model Review {
   id        String  @id @default(cuid())
   courseId  String  @map("course_id")
-  course    course  @relation(fields: [courseId], references: [id])
+  course    Course  @relation(fields: [courseId], references: [id])
   studentId String  @map("student_id")
-  student   student @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
 
   homeworkRating   Int    @map("homework_rating")
   difficultyRating Int    @map("difficulty_rating")
