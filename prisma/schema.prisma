@@ -12,21 +12,39 @@ model student {
   id             String   @id @default(cuid())
   name           String
   enrollmentYear Int      @map("enrollment_year")
-  review         review[]
+  reviews        review[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model teacher {
-  id     String   @id @default(cuid())
-  name   String
-  course course[]
+  id        String   @id @default(cuid())
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  courses   course[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model course {
-  id        String   @id @default(cuid())
-  title     String
-  teacherId String   @map("teacher_id")
-  teacher   teacher  @relation(fields: [teacherId], references: [id])
-  review    review[]
+  id            String          @id @default(cuid())
+  title         String
+  teacherId     String          @map("teacher_id")
+  teacher       teacher         @relation(fields: [teacherId], references: [id])
+  courseNumbers course_number[]
+  reviews       review[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model course_number {
+  id       String  @id @default(cuid())
+  number   String
+  course   course? @relation(fields: [courseId], references: [id])
+  courseId String? @map("course_id")
 }
 
 model review {
@@ -42,4 +60,5 @@ model review {
   note             String
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
