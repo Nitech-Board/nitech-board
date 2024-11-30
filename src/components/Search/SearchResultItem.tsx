@@ -1,11 +1,11 @@
-import { ClassSummary } from "../../app/types/class";
+import { CourseSummary } from "../../types/course";
 
-export const SearchResultItem = ({ result }: { result: ClassSummary }) => {
-  const { classNumber, name } = result;
+export const SearchResultItem = ({ result }: { result: CourseSummary }) => {
+  const { courseNumber, name } = result;
 
   return (
     <li>
-      <a href={`/class-detail/${classNumber}`}>{`${classNumber}：${name}`}</a>
+      <a href={`/class-detail/${courseNumber}`}>{`${courseNumber}：${name}`}</a>
     </li>
   );
 };
