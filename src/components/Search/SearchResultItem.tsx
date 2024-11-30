@@ -1,11 +1,11 @@
 import { CourseSummary } from "../../types/course";
 
 export const SearchResultItem = ({ result }: { result: CourseSummary }) => {
-  const { classNumber, name } = result;
+  const { courseNumber, name } = result;
 
   return (
     <li>
-      <a href={`/class-detail/${classNumber}`}>{`${classNumber}：${name}`}</a>
+      <a href={`/class-detail/${courseNumber}`}>{`${courseNumber}：${name}`}</a>
     </li>
   );
 };
