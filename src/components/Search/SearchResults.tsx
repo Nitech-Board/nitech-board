@@ -1,7 +1,7 @@
-import { ClassSummary } from "../../app/types/class";
+import { CourseSummary } from "../../types/course";
 import { SearchResultItem } from "./SearchResultItem";
 
-export const SearchResults = ({ results }: { results: ClassSummary[] }) => {
+export const SearchResults = ({ results }: { results: CourseSummary[] }) => {
   return (
     <div style={{ marginTop: "20px" }}>
       <p>検索結果</p>

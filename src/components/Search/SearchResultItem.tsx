@@ -1,6 +1,6 @@
-import { ClassSummary } from "../../app/types/class";
+import { CourseSummary } from "../../types/course";
 
-export const SearchResultItem = ({ result }: { result: ClassSummary }) => {
+export const SearchResultItem = ({ result }: { result: CourseSummary }) => {
   const { classNumber, name } = result;
 
   return (
