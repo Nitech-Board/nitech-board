@@ -1,4 +1,6 @@
 import React from "react";
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from "@mui/material";
+import styles from "../../app/class-detail/[classNumber]/page.module.css";
 
 interface ClassDataProps {
   details: {
@@ -11,24 +13,36 @@ interface ClassDataProps {
 
 const ClassData: React.FC<ClassDataProps> = ({ details }) => {
   return (
-    <div className="class-details">
-      <h2>{details.name}</h2>
-      <p>
-        <strong>授業名:</strong> {details.name}
-      </p>
-      <p>
-        <strong>教員:</strong> {details.teacher}
-      </p>
-      <p>
-        <strong>時間割番号:</strong> {details.num}
-      </p>
-      <p>
-        <strong>講義室:</strong> {details.location}
-      </p>
-      <p>
-        <strong>シラバス：</strong>リンクを付ける？？
-      </p>
-    </div>
+    <TableContainer component={Paper} className={styles.tableContainer}>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell className={styles.tableCellTitle}>授業名</TableCell>
+            <TableCell>{details.name}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={styles.tableCellTitle}>教員</TableCell>
+            <TableCell>{details.teacher}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={styles.tableCellTitle}>時間割番号</TableCell>
+            <TableCell>{details.num}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={styles.tableCellTitle}>講義室</TableCell>
+            <TableCell>{details.location}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={styles.tableCellTitle}>シラバス</TableCell>
+            <TableCell>
+              <a href="#" className={styles.tableLink}>
+                シラバスリンク
+              </a>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
