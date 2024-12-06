@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ClassData from "../../../components/class-detail/ClassData";
 import { useParams, useRouter } from "next/navigation";
+import ClassData from "../../../components/class-detail/ClassData";
+import Rader from "../../../components/class-detail/Rader";
+import styles from "./page.module.css";
+import { Rating } from "@mui/material";
 
 interface ClassData {
   num: string;
@@ -13,9 +16,10 @@ interface ClassData {
 
 export default function ClassDetailPage() {
   const [classData, setClassData] = useState<ClassData | undefined>();
+  const [averageScore, setAverageScore] = useState<number | null>(null);
   const router = useRouter();
 
-  // URLパスから授業番号を抽出
+  // URLパスから授業番号を取得
   const { classNumber } = useParams();
 
   useEffect(() => {
@@ -40,23 +44,40 @@ export default function ClassDetailPage() {
       },
     ];
 
-    console.log(classNumber);
-
     const courseDetail = courses.find((course) => course.num === classNumber);
     setClassData(courseDetail);
   }, [classNumber]);
 
-  // 投稿ボタンが押された時に呼ばれる関数
+  // 投稿ボタンが押された時
   const handleAddReview = () => {
     router.push(`/review/${classNumber}`);
   };
 
-  if (!classData) return <p>授業情報が見つかりません。</p>;
+  // レーダーチャートで計算した総合評価を受け取る関数
+  const handleScoreCalculated = (averageScore: number) => {
+    setAverageScore(averageScore);
+  };
+
+  if (!classData)
+    return <div className={styles.container}>授業情報が見つかりません。</div>;
 
   return (
-    <div>
+    <div className={styles.container}>
+      <h1>
+        {classData.name}{" "}
+        {averageScore !== null && (
+          <>
+            <span className={styles.total_value}>
+              {averageScore.toFixed(2)}
+            </span>
+            {/* 総合評価を★で表示 */}
+            <Rating value={averageScore} precision={0.1} readOnly />
+          </>
+        )}
+      </h1>
       <ClassData details={classData} />
-      <button onClick={handleAddReview} className="button-link">
+      <Rader onScoreCalculated={handleScoreCalculated} />
+      <button onClick={handleAddReview} className={styles.post_button}>
         レビューを投稿
       </button>
     </div>
