@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Radar,
   RadarChart,
@@ -6,7 +6,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 interface RaderProps {
   onScoreCalculated: (averageScore: number) => void;
@@ -15,24 +15,25 @@ interface RaderProps {
 function Rader({ onScoreCalculated }: RaderProps) {
   const data = [
     {
-      subject: '授業のわかりやすさ',
+      subject: "授業のわかりやすさ",
       score: 3.75,
       fullMark: 5,
     },
     {
-      subject: 'テストの難易度',
+      subject: "テストの難易度",
       score: 4.2,
       fullMark: 5,
     },
     {
-      subject: '課題の量',
+      subject: "課題の量",
       score: 2.5,
       fullMark: 5,
     },
   ];
 
   // 平均スコアを計算
-  const averageScore = data.reduce((sum, item) => sum + item.score, 0) / data.length;
+  const averageScore =
+    data.reduce((sum, item) => sum + item.score, 0) / data.length;
 
   // 親コンポーネントに平均スコアを渡す
   React.useEffect(() => {
@@ -45,7 +46,12 @@ function Rader({ onScoreCalculated }: RaderProps) {
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
         <PolarRadiusAxis angle={90} domain={[0, 5]} tickCount={6} />
-        <Radar dataKey="score" stroke="#606DC2" fill="#606DC2" fillOpacity={0.2} />
+        <Radar
+          dataKey="score"
+          stroke="#606DC2"
+          fill="#606DC2"
+          fillOpacity={0.2}
+        />
       </RadarChart>
     </ResponsiveContainer>
   );

@@ -1,5 +1,12 @@
 import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import styles from "../../app/class-detail/[classNumber]/page.module.css";
 
 interface ClassDataProps {

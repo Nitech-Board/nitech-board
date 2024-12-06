@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import ClassData from '../../../components/class-detail/ClassData';
-import Rader from '../../../components/class-detail/Rader';
-import styles from './page.module.css';
-import { Rating } from '@mui/material'; 
+import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import ClassData from "../../../components/class-detail/ClassData";
+import Rader from "../../../components/class-detail/Rader";
+import styles from "./page.module.css";
+import { Rating } from "@mui/material";
 
 interface ClassData {
   num: string;
@@ -25,22 +25,22 @@ export default function ClassDetailPage() {
   useEffect(() => {
     const courses = [
       {
-        num: '7262',
-        name: 'パターン認識',
-        teacher: '本谷 秀堅',
-        location: '教室A',
+        num: "7262",
+        name: "パターン認識",
+        teacher: "本谷 秀堅",
+        location: "教室A",
       },
       {
-        num: '8151',
-        name: '人工知能',
-        teacher: '山田 太郎',
-        location: '教室B',
+        num: "8151",
+        name: "人工知能",
+        teacher: "山田 太郎",
+        location: "教室B",
       },
       {
-        num: '9123',
-        name: 'コンピュータビジョン',
-        teacher: '鈴木 一郎',
-        location: '教室C',
+        num: "9123",
+        name: "コンピュータビジョン",
+        teacher: "鈴木 一郎",
+        location: "教室C",
       },
     ];
 
@@ -64,16 +64,12 @@ export default function ClassDetailPage() {
   return (
     <div className={styles.container}>
       <h1>
-        {classData.name}{' '}
+        {classData.name}{" "}
         {averageScore !== null && (
           <>
-          <span className={styles.totalvalue}>{averageScore.toFixed(2)}</span>
+            <span className={styles.totalvalue}>{averageScore.toFixed(2)}</span>
             {/* 総合評価を★で表示 */}
-            <Rating
-              value={averageScore} 
-              precision={0.1}  
-              readOnly  
-            />
+            <Rating value={averageScore} precision={0.1} readOnly />
           </>
         )}
       </h1>
