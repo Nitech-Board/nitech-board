@@ -1,5 +1,9 @@
 "use client";
 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// Firebaseの初期化を行うためfirebaseAppをインポート
+import { firebaseApp } from "../../lib/FirebaseConfig";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "../../components/login/LoginForm";
@@ -12,9 +16,24 @@ export default function LoginPage() {
 
   const router = useRouter();
 
+  // FirebaseAppを利用して認証を取得
+  const auth = getAuth(firebaseApp);
   // ログインボタンが押されたとき
-  const handleLogin = () => {
-    router.push("/search");
+  const doLogin = () => {
+    //const auth = getAuth();
+
+    // Firebaseで用意されているメールアドレスとパスワードでログインするための関数
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        // ログインができたかどうかをわかりやすくするためのアラート
+        alert("ログインOK!");
+        console.log(user);
+        router.push("/search");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -27,7 +46,7 @@ export default function LoginPage() {
         setEmail={setEmail}
         setPassword={setPassword}
         togglePasswordVisibility={() => setShowPassword(!showPassword)}
-        onLogin={handleLogin}
+        onLogin={doLogin}
       />
     </div>
   );
