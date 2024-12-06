@@ -67,7 +67,9 @@ export default function ClassDetailPage() {
         {classData.name}{" "}
         {averageScore !== null && (
           <>
-            <span className={styles.totalvalue}>{averageScore.toFixed(2)}</span>
+            <span className={styles.total_value}>
+              {averageScore.toFixed(2)}
+            </span>
             {/* 総合評価を★で表示 */}
             <Rating value={averageScore} precision={0.1} readOnly />
           </>
@@ -75,7 +77,7 @@ export default function ClassDetailPage() {
       </h1>
       <ClassData details={classData} />
       <Rader onScoreCalculated={handleScoreCalculated} />
-      <button onClick={handleAddReview} className={styles.postButton}>
+      <button onClick={handleAddReview} className={styles.post_button}>
         レビューを投稿
       </button>
     </div>

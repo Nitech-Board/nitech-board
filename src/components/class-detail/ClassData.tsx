@@ -7,8 +7,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import styles from "../../app/class-detail/[classNumber]/page.module.css";
-
+import styles from "./ClassData.module.css";
 interface ClassDataProps {
   details: {
     num: string;
@@ -18,27 +17,24 @@ interface ClassDataProps {
   };
 }
 
+const CourseTableRow = ({ title, data }) => {
+  return (
+    <TableRow>
+      <TableCell className={styles.tableCellTitle}>{title}</TableCell>
+      <TableCell>{data}</TableCell>
+    </TableRow>
+  );
+};
+
 const ClassData: React.FC<ClassDataProps> = ({ details }) => {
   return (
-    <TableContainer component={Paper} className={styles.tableContainer}>
+    <TableContainer component={Paper} className={styles.table_container}>
       <Table>
         <TableBody>
-          <TableRow>
-            <TableCell className={styles.tableCellTitle}>授業名</TableCell>
-            <TableCell>{details.name}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className={styles.tableCellTitle}>教員</TableCell>
-            <TableCell>{details.teacher}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className={styles.tableCellTitle}>時間割番号</TableCell>
-            <TableCell>{details.num}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className={styles.tableCellTitle}>講義室</TableCell>
-            <TableCell>{details.location}</TableCell>
-          </TableRow>
+          <CourseTableRow title={"授業名"} data={details.name} />
+          <CourseTableRow title={"教員"} data={details.teacher} />
+          <CourseTableRow title={"時間割番号"} data={details.num} />
+          <CourseTableRow title={"講義室"} data={details.location} />
           <TableRow>
             <TableCell className={styles.tableCellTitle}>シラバス</TableCell>
             <TableCell>
