@@ -1,6 +1,4 @@
 import { initializeApp, getApps } from "firebase/app";
-// Firestoreはログインやユーザー登録の実装には使わないが、今後のことを考えて入れておく
-import { getFirestore } from 'firebase/firestore'
 import {
   getAuth,
 } from "firebase/auth";
@@ -17,14 +15,12 @@ const firebaseConfig = {
 
 
 let firebaseApp = initializeApp(firebaseConfig);
-let firestore = getFirestore;
 
 // サーバーサイドでレンダリングするときにエラーが起きないようにするための記述
 // 意味わからない
 if (typeof window !== "undefined" && !getApps().length) {
   firebaseApp = initializeApp(firebaseConfig);
-  firestore = getFirestore();
 }
 
 export const auth = getAuth(firebaseApp);
-export { firebaseApp, firestore };
+export { firebaseApp };
