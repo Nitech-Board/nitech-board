@@ -1,0 +1,57 @@
+/* ページ全体のコンテナ */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 32px;
+  }
+  
+  /* 投稿ボタン */
+  .postButton {
+    padding: 8px 32px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .totalvalue{
+    margin-right: 5px;
+    margin-left: 15px;
+    font-size: 20px;
+    color: rgba(255, 166, 0, 0.849);
+  }
+  
+  .postButton:hover {
+    background-color: #1565c0;
+  }
+  
+  /* テーブルコンテナ */
+  .tableContainer {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  /* テーブルの項目 */
+  .tableCellTitle {
+    font-size: 14px;
+    font-weight: bold;  
+  }
+  
+  .tableLink {
+    color: #1976d2;
+    text-decoration: none;
+  }
+  
+  .tableLink:hover {
+    text-decoration: underline;
+  }
+  
