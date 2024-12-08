@@ -6,3 +6,9 @@ export interface CourseSummary {
 }
 
 export type CourseWithNumbers = Course & { courseNumbers: CourseNumber[] };
+
+export interface CourseDetail {
+  title: string;
+  teacherName: string;
+  courseNumber: string;
+}

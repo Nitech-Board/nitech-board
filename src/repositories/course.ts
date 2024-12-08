@@ -1,5 +1,6 @@
-import { CourseSummary, CourseWithNumbers } from "@/types/course";
+import { CourseDetail, CourseSummary, CourseWithNumbers } from "@/types/course";
 import { getPrismaClient } from "@/utils/prisma";
+import { getCourseDetailByCourseNumberQuery } from "@prisma/client/sql";
 
 const courseListFormatter = (
   courseRows: CourseWithNumbers[]
@@ -28,4 +29,27 @@ export const getCourseList = async () => {
 
   const courseList = courseListFormatter(courseRows);
   return courseList;
+};
+
+const courseDetailFormatter = (
+  courseDetail: getCourseDetailByCourseNumberQuery.Result
+): CourseDetail => {
+  return {
+    title: courseDetail.title,
+    teacherName: courseDetail.last_name + " " + courseDetail.first_name,
+    courseNumber: courseDetail.number,
+  };
+};
+
+export const getCourseDetailByCourseNumber = async (
+  courseNumber: string
+): Promise<CourseDetail | null> => {
+  const prisma = getPrismaClient();
+  const courseDetail = await prisma.$queryRawTyped(
+    getCourseDetailByCourseNumberQuery(courseNumber)
+  );
+
+  return courseDetail.length > 0
+    ? courseDetailFormatter(courseDetail[0])
+    : null;
 };
