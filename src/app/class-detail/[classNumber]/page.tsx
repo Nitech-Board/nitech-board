@@ -6,16 +6,10 @@ import ClassData from "../../../components/class-detail/ClassData";
 import Rader from "../../../components/class-detail/Rader";
 import styles from "./page.module.css";
 import { Rating } from "@mui/material";
-
-interface ClassData {
-  num: string;
-  name: string;
-  teacher: string;
-  location: string;
-}
+import { CourseDetail } from "@/types/course";
 
 export default function ClassDetailPage() {
-  const [classData, setClassData] = useState<ClassData | undefined>();
+  const [classData, setClassData] = useState<CourseDetail | undefined>();
   const [averageScore, setAverageScore] = useState<number | null>(null);
   const router = useRouter();
 
@@ -23,29 +17,20 @@ export default function ClassDetailPage() {
   const { classNumber } = useParams();
 
   useEffect(() => {
-    const courses = [
-      {
-        num: "7262",
-        name: "パターン認識",
-        teacher: "本谷 秀堅",
-        location: "教室A",
-      },
-      {
-        num: "8151",
-        name: "人工知能",
-        teacher: "山田 太郎",
-        location: "教室B",
-      },
-      {
-        num: "9123",
-        name: "コンピュータビジョン",
-        teacher: "鈴木 一郎",
-        location: "教室C",
-      },
-    ];
-
-    const courseDetail = courses.find((course) => course.num === classNumber);
-    setClassData(courseDetail);
+    fetch(`/api/course-detail/${classNumber}`)
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else {
+          setClassData(null);
+          throw new Error("授業情報が見つかりません");
+        }
+      })
+      .then((data) => {
+        setClassData(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [classNumber]);
 
   // 投稿ボタンが押された時
@@ -58,13 +43,16 @@ export default function ClassDetailPage() {
     setAverageScore(averageScore);
   };
 
-  if (!classData)
+  if (classData === undefined)
+    return <div className={styles.container}>Loading...</div>;
+
+  if (classData === null)
     return <div className={styles.container}>授業情報が見つかりません。</div>;
 
   return (
     <div className={styles.container}>
       <h1>
-        {classData.name}{" "}
+        {classData.title}{" "}
         {averageScore !== null && (
           <>
             <span className={styles.total_value}>
