@@ -1,15 +1,22 @@
-export const RatingInput = (props) => {
-  const { rating, onChange } = props;
+import React from "react";
+import { Rating } from "@mui/material";
 
+interface RatingInputProps {
+  rating: number;
+  onChange: (value: number | null) => void;
+}
+
+export const RatingInput: React.FC<RatingInputProps> = ({
+  rating,
+  onChange,
+}) => {
   return (
     <div>
-      {/* <label>評価：{rating}</label> */}
-      <input
-        type="range"
-        min="1"
-        max="5"
+      <Rating
         value={rating}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(_, newValue) => onChange(newValue)}
+        precision={0.5}
+        size="large"
       />
     </div>
   );

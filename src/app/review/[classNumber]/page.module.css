@@ -1,0 +1,61 @@
+/*　全体のスタイル　*/
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px auto;
+  padding: 24px;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+/* タイトルのスタイル */
+.reviewForm h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  margin-top: 0px;
+  text-align: center;
+}
+
+/*　評価欄のスタイル　*/
+.value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  width: 100%;
+  border-bottom: 1px solid #c5d9e5;
+}
+
+/* 評価項目のスタイル */
+.value > div:first-child {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* コメントのスタイル */
+.comment {
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* ボタンのスタイル */
+.submitButton {
+  margin-top: 24px;
+  padding: 10px 16px;
+  font-size: 18px;
+  width: 55%;
+  text-align: center;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*　ボタンに標準を合わせた時のスタイル　*/
+.submitButton:hover {
+  background-color: #1565c0;
+}
