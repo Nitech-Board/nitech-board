@@ -6,11 +6,12 @@ import ClassData from "../../../components/class-detail/ClassData";
 import Rader from "../../../components/class-detail/Rader";
 import styles from "./page.module.css";
 import { Rating } from "@mui/material";
-import { CourseDetail } from "@/types/course";
-import ReactLoading from "react-loading";
+import { CourseDetailWithReviews } from "@/types/course";
 
 export default function ClassDetailPage() {
-  const [classData, setClassData] = useState<CourseDetail | undefined>();
+  const [courseDataWithReviews, setCourseDataWithReviews] = useState<
+    CourseDetailWithReviews | undefined
+  >();
   const [averageScore, setAverageScore] = useState<number | null>(null);
   const router = useRouter();
 
@@ -22,12 +23,12 @@ export default function ClassDetailPage() {
       .then((res) => {
         if (res.status === 200) return res.json();
         else {
-          setClassData(null);
+          setCourseDataWithReviews(null);
           throw new Error("授業情報が見つかりません");
         }
       })
       .then((data) => {
-        setClassData(data);
+        setCourseDataWithReviews(data);
       })
       .catch((error) => {
         console.error(error);
@@ -44,20 +45,16 @@ export default function ClassDetailPage() {
     setAverageScore(averageScore);
   };
 
-  if (classData === undefined)
-    return (
-      <div className={styles.loadingContainer}>
-        <ReactLoading type="spokes" color="#444" height={130} width={130} />
-      </div>
-    );
+  if (courseDataWithReviews === undefined)
+    return <div className={styles.container}>Loading...</div>;
 
-  if (classData === null)
+  if (courseDataWithReviews === null)
     return <div className={styles.container}>授業情報が見つかりません。</div>;
 
   return (
     <div className={styles.container}>
       <h1>
-        {classData.title}{" "}
+        {courseDataWithReviews.course.title}{" "}
         {averageScore !== null && (
           <>
             <span className={styles.total_value}>
@@ -68,7 +65,7 @@ export default function ClassDetailPage() {
           </>
         )}
       </h1>
-      <ClassData details={classData} />
+      <ClassData details={courseDataWithReviews.course} />
       <Rader onScoreCalculated={handleScoreCalculated} />
       <button onClick={handleAddReview} className={styles.post_button}>
         レビューを投稿

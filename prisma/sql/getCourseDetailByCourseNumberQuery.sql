@@ -1,4 +1,5 @@
 SELECT
+  course.id,
   course.title,
   teacher.first_name,
   teacher.last_name,

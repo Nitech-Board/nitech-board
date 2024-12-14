@@ -1,5 +1,6 @@
-import { ReviewData } from "@/types/course";
+import { ReviewData, ReviewDataWithStudent } from "@/types/course";
 import { getPrismaClient } from "@/utils/prisma";
+import { Review } from "@prisma/client";
 
 const getCourseIdByCourseNumber = async (
   courseNumber: string
@@ -42,4 +43,27 @@ export const insertReview = async (
   });
 
   return res;
+};
+
+export const getReviewsByCourseId = async (
+  courseId: string
+): Promise<ReviewDataWithStudent[]> => {
+  const prisma = getPrismaClient();
+  const res = await prisma.review.findMany({
+    where: {
+      courseId,
+    },
+  });
+
+  return res.map(reviewFormatter);
+};
+
+const reviewFormatter = (review: Review): ReviewDataWithStudent => {
+  return {
+    studentId: review.studentId,
+    clearityRating: review.clearityRating,
+    testRating: review.testRating,
+    homeworkRating: review.homeworkRating,
+    comment: review.comment,
+  };
 };
