@@ -47,9 +47,8 @@ export default function WebSocketPage() {
         return;
       }
       alert("レビューを投稿しました");
+      router.push("/search");
     });
-
-    router.push("/search");
   };
 
   return (

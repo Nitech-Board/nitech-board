@@ -14,8 +14,18 @@ export interface ReviewData {
   comment: string;
 }
 
+export interface ReviewDataWithStudent extends ReviewData {
+  studentId: string;
+}
+
 export interface CourseDetail {
+  courseId: string;
   title: string;
   teacherName: string;
   courseNumber: string;
+}
+
+export interface CourseDetailWithReviews {
+  course: CourseDetail;
+  reviews: ReviewDataWithStudent[];
 }
