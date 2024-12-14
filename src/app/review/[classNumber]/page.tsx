@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { RatingInput } from "../../../components/Review/RatingInput";
 import { TextInput } from "../../../components/Review/TextInput";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { ReviewData } from "@/types/course";
 
@@ -13,6 +13,7 @@ export default function WebSocketPage() {
   const [testRating, setTestRating] = useState<number | null>(null);
   const [homeworkRating, setHomeworkRating] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
+  const { classNumber } = useParams();
   const router = useRouter();
 
   const funcSubmit = () => {
@@ -26,15 +27,28 @@ export default function WebSocketPage() {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const data: ReviewData = {
+    const reviewData: ReviewData = {
       clearityRating,
       testRating,
       homeworkRating,
       comment,
     };
 
-    alert(`送信しました！`);
+    fetch(`/api/review/${classNumber}`, {
+      method: "POST",
+      body: JSON.stringify({ reviewData }),
+    }).then((res) => {
+      if (res.status === 404) {
+        alert("授業情報が見つかりません");
+        return;
+      }
+      if (res.status !== 200) {
+        alert("エラーが発生しました");
+        return;
+      }
+      alert("レビューを投稿しました");
+    });
+
     router.push("/search");
   };
 
