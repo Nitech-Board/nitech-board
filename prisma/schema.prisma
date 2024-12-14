@@ -63,10 +63,10 @@ model Review {
   studentId String  @map("student_id")
   student   Student @relation(fields: [studentId], references: [id])
 
-  homeworkRating   Int    @map("homework_rating")
-  difficultyRating Int    @map("difficulty_rating")
-  examRating       Int    @map("exam_rating")
-  note             String
+  clearityRating Int    @map("clearity_rating")
+  testRating     Int    @map("test_rating")
+  homeworkRating Int    @map("homework_rating")
+  comment        String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
