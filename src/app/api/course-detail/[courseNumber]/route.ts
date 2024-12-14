@@ -1,6 +1,9 @@
 import { getCourseDetailByCourseNumber } from "@/repositories/course";
+import { getReviewsByCourseId } from "@/repositories/review";
+import { CourseDetailWithReviews } from "@/types/course";
 import { NextRequest, NextResponse } from "next/server";
 
+// GET /api/course-detail/[courseNumber]
 export async function GET(
   req: NextRequest,
   {
@@ -19,5 +22,12 @@ export async function GET(
     );
   }
 
-  return NextResponse.json(courseDetail, { status: 200 });
+  const reviews = await getReviewsByCourseId(courseDetail.courseId);
+
+  const response: CourseDetailWithReviews = {
+    course: courseDetail,
+    reviews: reviews,
+  };
+
+  return NextResponse.json(response, { status: 200 });
 }
