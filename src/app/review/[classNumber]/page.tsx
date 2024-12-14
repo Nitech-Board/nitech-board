@@ -7,12 +7,14 @@ import { TextInput } from "../../../components/Review/TextInput";
 import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { ReviewData } from "@/types/course";
+import Swal from "sweetalert2";
 
 export default function WebSocketPage() {
   const [clearityRating, setClarityRating] = useState<number | null>(null);
   const [testRating, setTestRating] = useState<number | null>(null);
   const [homeworkRating, setHomeworkRating] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const { classNumber } = useParams();
   const router = useRouter();
 
@@ -23,7 +25,11 @@ export default function WebSocketPage() {
       testRating === null ||
       homeworkRating === null
     ) {
-      alert("全ての評価項目を入力してください。");
+      Swal.fire({
+        title: "入力エラー",
+        text: "全ての評価項目を入力してください",
+        icon: "warning",
+      });
       return;
     }
 
@@ -34,22 +40,27 @@ export default function WebSocketPage() {
       comment,
     };
 
+    setIsButtonDisabled(true);
     fetch(`/api/review/${classNumber}`, {
       method: "POST",
       body: JSON.stringify({ reviewData }),
     }).then((res) => {
-      if (res.status === 404) {
-        alert("授業情報が見つかりません");
-        return;
-      }
       if (res.status !== 200) {
-        alert("エラーが発生しました");
+        Swal.fire({
+          title: "エラーが発生しました",
+          text: "時間割番号が間違っている可能性があります",
+          icon: "error",
+        });
+        setIsButtonDisabled(false);
         return;
       }
-      alert("レビューを投稿しました");
+      Swal.fire({
+        title: "レビューを投稿しました",
+        icon: "success",
+      }).then(() => {
+        router.push("/search");
+      });
     });
-
-    router.push("/search");
   };
 
   return (
@@ -93,6 +104,7 @@ export default function WebSocketPage() {
         color="primary"
         onClick={funcSubmit}
         className={styles.submitButton}
+        disabled={isButtonDisabled}
       >
         投稿
       </Button>
