@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "init": "prisma generate && prisma db push",
-    "generate": "prisma generate --sql && prisma db push",
+    "generate": "prisma generate --sql",
     "seed": "tsx ./prisma/seed.ts"
   },
   "dependencies": {
