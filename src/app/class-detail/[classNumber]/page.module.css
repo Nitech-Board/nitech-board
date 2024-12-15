@@ -28,3 +28,11 @@
 .post_button:hover {
   background-color: #1565c0;
 }
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

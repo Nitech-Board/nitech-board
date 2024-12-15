@@ -20,12 +20,12 @@ function Rader({ onScoreCalculated }: RaderProps) {
       fullMark: 5,
     },
     {
-      subject: "テストの難易度",
+      subject: "テストの簡単さ",
       score: 4.2,
       fullMark: 5,
     },
     {
-      subject: "課題の量",
+      subject: "課題の楽さ",
       score: 2.5,
       fullMark: 5,
     },

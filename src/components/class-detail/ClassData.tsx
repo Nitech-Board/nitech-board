@@ -8,14 +8,7 @@ import {
   Paper,
 } from "@mui/material";
 import styles from "./ClassData.module.css";
-interface ClassDataProps {
-  details: {
-    num: string;
-    name: string;
-    teacher: string;
-    location: string;
-  };
-}
+import { CourseDetail } from "@/types/course";
 
 const CourseTableRow = ({ title, data }) => {
   return (
@@ -26,15 +19,14 @@ const CourseTableRow = ({ title, data }) => {
   );
 };
 
-const ClassData: React.FC<ClassDataProps> = ({ details }) => {
+const ClassData = ({ details }: { details: CourseDetail }) => {
   return (
     <TableContainer component={Paper} className={styles.table_container}>
       <Table>
         <TableBody>
-          <CourseTableRow title={"授業名"} data={details.name} />
-          <CourseTableRow title={"教員"} data={details.teacher} />
-          <CourseTableRow title={"時間割番号"} data={details.num} />
-          <CourseTableRow title={"講義室"} data={details.location} />
+          <CourseTableRow title={"授業名"} data={details.title} />
+          <CourseTableRow title={"教員"} data={details.teacherName} />
+          <CourseTableRow title={"時間割番号"} data={details.courseNumber} />
           <TableRow>
             <TableCell className={styles.tableCellTitle}>シラバス</TableCell>
             <TableCell>

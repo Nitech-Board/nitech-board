@@ -55,9 +55,21 @@ async function main() {
         },
       },
     });
-
     console.log(createdTeacher);
   });
+
+  // TODO:いつか消す
+  const studentId = getCuid();
+  const createdStudent = await prisma.student.upsert({
+    where: { id: studentId },
+    update: {},
+    create: {
+      id: studentId,
+      name: "テスト太郎君",
+      enrollmentYear: 2022,
+    },
+  });
+  console.log(createdStudent);
 }
 
 main()

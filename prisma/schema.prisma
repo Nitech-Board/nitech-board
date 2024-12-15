@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
@@ -16,6 +17,8 @@ model Student {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("student")
 }
 
 model Teacher {
@@ -26,6 +29,8 @@ model Teacher {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("teacher")
 }
 
 model Course {
@@ -38,6 +43,8 @@ model Course {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("course")
 }
 
 model CourseNumber {
@@ -56,11 +63,13 @@ model Review {
   studentId String  @map("student_id")
   student   Student @relation(fields: [studentId], references: [id])
 
-  homeworkRating   Int    @map("homework_rating")
-  difficultyRating Int    @map("difficulty_rating")
-  examRating       Int    @map("exam_rating")
-  note             String
+  clearityRating Int    @map("clearity_rating")
+  testRating     Int    @map("test_rating")
+  homeworkRating Int    @map("homework_rating")
+  comment        String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("review")
 }
