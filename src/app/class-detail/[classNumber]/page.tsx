@@ -7,6 +7,7 @@ import Rader from "../../../components/class-detail/Rader";
 import styles from "./page.module.css";
 import { Rating } from "@mui/material";
 import { CourseDetail } from "@/types/course";
+import ReactLoading from "react-loading";
 
 export default function ClassDetailPage() {
   const [classData, setClassData] = useState<CourseDetail | undefined>();
@@ -44,7 +45,11 @@ export default function ClassDetailPage() {
   };
 
   if (classData === undefined)
-    return <div className={styles.container}>Loading...</div>;
+    return (
+      <div className={styles.loadingContainer}>
+        <ReactLoading type="spokes" color="#444" height={130} width={130} />
+      </div>
+    );
 
   if (classData === null)
     return <div className={styles.container}>授業情報が見つかりません。</div>;
