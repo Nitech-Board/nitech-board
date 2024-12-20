@@ -35,6 +35,7 @@ const courseDetailFormatter = (
   courseDetail: getCourseDetailByCourseNumberQuery.Result
 ): CourseDetail => {
   return {
+    courseId: courseDetail.id,
     title: courseDetail.title,
     teacherName: courseDetail.last_name + " " + courseDetail.first_name,
     courseNumber: courseDetail.number,
