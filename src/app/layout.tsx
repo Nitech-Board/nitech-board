@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "../styles/global.css";
 import "@/lib/FirebaseConfig";
 import { APPLICATION_NAME } from "@/utils/const";
+import { AuthProvider } from "@/components/provider/AurhProvider";
 
 export const metadata: Metadata = {
   title: APPLICATION_NAME,
@@ -16,10 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>
-        <Header />
-        {children}
-      </body>
+      <AuthProvider>
+        <body>
+          <Header />
+          {children}
+        </body>
+      </AuthProvider>
     </html>
   );
 }
