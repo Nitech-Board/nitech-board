@@ -29,18 +29,13 @@ export default function WebSocketPage() {
 
   const funcSearch = (query: { courseNumber: string; name: string }) => {
     return courseList.filter((courseSummary) => {
-      const courseNumberMatches =
-        query.courseNumber &&
-        courseSummary.courseNumber.startsWith(query.courseNumber); // 時間割番号の前方一致
+      const courseNumberMatches = courseSummary.courseNumber.startsWith(
+        query.courseNumber
+      ); // 時間割番号の前方一致
 
-      const nameMatches = query.name && courseSummary.name.includes(query.name); // 科目名の部分一致
+      const nameMatches = courseSummary.name.includes(query.name); // 科目名の部分一致
 
-      // 両方入力されていたらAND演算、片方ならOR演算
-      if (query.courseNumber && query.name) {
-        return courseNumberMatches && nameMatches;
-      } else {
-        return courseNumberMatches || nameMatches;
-      }
+      return courseNumberMatches && nameMatches;
     });
   };
 
