@@ -4,13 +4,14 @@ import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
 import { CourseSummary } from "../../types/course";
+import { SearchForm } from "../../components/Search/SearchForm";
 
 export default function WebSocketPage() {
-  const [courseNumber, setCourseNumber] = useState("");
   const [courseList, setCourseList] = useState<CourseSummary[]>([]);
   const [searchResults, setSearchResults] = useState<CourseSummary[]>([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // 初期表示時に授業一覧を取得（バックエンドAPIを通してデータを取得する）
+  // 初期表示時に授業一覧を取得
   useEffect(() => {
     fetch("/api/course-list")
       .then((res) => res.json())
@@ -19,44 +20,30 @@ export default function WebSocketPage() {
       });
   }, []);
 
-  const handleInputChange = (e) => setCourseNumber(e.target.value);
-
-  // 検索ボタン押下時の処理
-  const handleSearch = () => {
-    const results = funcSearch(courseNumber);
+  // 子コンポーネントから受け取った検索条件を処理
+  const handleSearch = (query: { courseNumber: string; name: string }) => {
+    const results = funcSearch(query);
     setSearchResults(results);
+    setHasSearched(true);
   };
 
-  // 検索処理
-  const funcSearch = (courseNumber) => {
-    return courseList.filter((courseSummary) =>
-      courseSummary.courseNumber.includes(courseNumber)
-    );
+  const funcSearch = (query: { courseNumber: string; name: string }) => {
+    return courseList.filter((courseSummary) => {
+      const courseNumberMatches = courseSummary.courseNumber.startsWith(
+        query.courseNumber
+      ); // 時間割番号の前方一致
+
+      const nameMatches = courseSummary.name.includes(query.name); // 科目名の部分一致
+
+      return courseNumberMatches && nameMatches;
+    });
   };
 
   return (
-    <>
-      <div className={styles.search_page}>
-        <label>
-          <p>授業番号：</p>
-          <p>
-            <input
-              type="text"
-              name="search"
-              value={courseNumber}
-              onChange={handleInputChange}
-            ></input>
-          </p>
-        </label>
-        <p>
-          <button type="submit" onClick={handleSearch}>
-            検索
-          </button>
-        </p>
-      </div>
-      <div style={{ padding: "10px" }}>
-        <SearchResults results={searchResults} />
-      </div>
-    </>
+    <div className={styles.body}>
+      <h1>コースを検索</h1>
+      <SearchForm onSearch={handleSearch} />
+      {hasSearched && <SearchResults results={searchResults} />}
+    </div>
   );
 }
