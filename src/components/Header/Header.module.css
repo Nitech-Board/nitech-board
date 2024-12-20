@@ -1,9 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Badeen+Display&family=Dela+Gothic+One&family=Edu+AU+VIC+WA+NT+Arrows:wght@700&display=swap");
+
 .header {
   background-color: rgb(39, 213, 219);
-  padding: 5px;
+  padding: 22px 10px;
 }
 
-.title_font {
-  font-size: 30px;
-  text-align: center;
+.titleFont {
+  font-size: 32px;
+  margin: 0;
+  width: fit-content;
+}
+
+.header a {
+  color: #333;
+  text-decoration: none;
+  width: auto;
+}
+
+.delaGothicOneRegular {
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
