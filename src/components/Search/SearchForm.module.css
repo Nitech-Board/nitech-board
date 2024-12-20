@@ -1,5 +1,8 @@
 /* 検索フォーム */
 .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -34,6 +37,13 @@
   transition: background-color 0.3s ease;
   margin: 10px auto 0;
   text-align: center;
+}
+
+/* スマホとタブレットの時のボタンの幅 */
+@media (max-width: 768px) {
+  .body button {
+    width: 50%;
+  }
 }
 
 .body button:hover {

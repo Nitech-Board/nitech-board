@@ -26,22 +26,16 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   return (
     <div className={styles.body}>
       <p>時間割番号</p>
-      <p>
-        <input
-          type="text"
-          value={courseNumber}
-          onChange={handleCourseNumberChange}
-        />
-      </p>
+      <input
+        type="text"
+        value={courseNumber}
+        onChange={handleCourseNumberChange}
+      />
       <p>科目名</p>
-      <p>
-        <input type="text" value={name} onChange={handleNameChange} />
-      </p>
-      <p>
-        <button type="button" onClick={handleSearchClick}>
-          検索
-        </button>
-      </p>
+      <input type="text" value={name} onChange={handleNameChange} />
+      <button type="button" onClick={handleSearchClick}>
+        検索
+      </button>
     </div>
   );
 };
