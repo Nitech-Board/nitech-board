@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const ProfileForm = ({ onSubmit }) => {
   const [nickname, setNickname] = useState("");
@@ -7,7 +8,7 @@ const ProfileForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!nickname || !enrollmentYear) {
-      alert("全ての項目を入力してください。");
+      Swal.fire("エラー", "全ての項目を入力してください。", "error");
       return;
     }
     onSubmit({ nickname, enrollmentYear });
