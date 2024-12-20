@@ -1,0 +1,52 @@
+/* テーブルコンテナ */
+.tableContainer {
+  max-width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 8px;
+}
+
+/* テーブル */
+.table {
+  width: 100%;
+  text-align: left;
+}
+
+/* ヘッダーセル */
+.headerCell {
+  font-weight: bold;
+  background-color: #1976d2;
+  color: white !important;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* 通常セル */
+.cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* 偶数行の背景色 */
+.row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* リンク */
+.link {
+  text-decoration: none;
+  color: #568dc4;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #1565c0;
+}
+
+/* 検索結果がない場合 */
+.noResults {
+  text-align: center;
+  font-size: 16px;
+  margin: 20px 0;
+}

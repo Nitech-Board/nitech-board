@@ -1,8 +1,16 @@
-.search_page p {
-  margin: 10px;
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* 子要素が親要素の幅いっぱいになる */
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%; /* 親要素全体の幅を使う */
+  box-sizing: border-box; /* パディングを含めた幅計算 */
 }
 
-/*  
-.lec {
-  border: 1px solid black;
-}*/
+.body h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}

@@ -1,0 +1,41 @@
+/* 検索フォーム */
+.body {
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  box-sizing: border-box;
+}
+
+/* 入力フィールド */
+.body input[type="text"] {
+  width: 95%;
+  padding: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* 検索ボタン */
+.body button {
+  display: block;
+  background-color: #1976d2;
+  width: 15%;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px auto 0;
+  text-align: center;
+}
+
+.body button:hover {
+  background-color: #1565c0;
+}
