@@ -24,26 +24,25 @@ const ProfilePage = () => {
     const token = await user.getIdToken();
 
     // プロフィール情報を送信
-    fetch("/api/profile", {
+    const res = await fetch("/api/profile", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(profileData),
-    }).then((res) => {
-      if (res.ok) {
-        // SweetAlertで成功アラートを表示
-        Swal.fire({
-          title: "プロフィール登録完了",
-          text: `ニックネーム: ${nickname}\n入学年度: ${enrollmentYear}`,
-          icon: "success",
-        });
-      } else {
-        console.log(token);
-        Swal.fire("エラー", "プロフィール登録に失敗しました。", "error");
-      }
     });
+    if (res.ok) {
+      // SweetAlertで成功アラートを表示
+      Swal.fire({
+        title: "プロフィール登録完了",
+        text: `ニックネーム: ${nickname}\n入学年度: ${enrollmentYear}`,
+        icon: "success",
+      });
+    } else {
+      console.log(token);
+      Swal.fire("エラー", "プロフィール登録に失敗しました。", "error");
+    }
   };
 
   return (

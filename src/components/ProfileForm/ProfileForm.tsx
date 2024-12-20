@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "../provider/AurhProvider";
+import { Button } from "@mui/material";
+import styles from "./ProfileForm.module.css";
 import Loading from "../Loading/Loading";
 
 const ProfileForm = ({ onSubmit }) => {
   const user = useAuth();
-  const [nickname, setNickname] = useState("");
-  const [enrollmentYear, setEnrollmentYear] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLoading, setIsloading] = useState(true);
+  const [nickname, setNickname] = useState<string>("");
+  const [enrollmentYear, setEnrollmentYear] = useState<string>("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const [isLoading, setIsloading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -56,7 +58,7 @@ const ProfileForm = ({ onSubmit }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <div style={{ marginBottom: "10px" }}>
         <label>
           ニックネーム：
@@ -64,7 +66,7 @@ const ProfileForm = ({ onSubmit }) => {
             type="text"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
-            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+            style={{ width: "95%", padding: "8px", marginTop: "5px" }}
             placeholder="例: 山田太郎"
           />
         </label>
@@ -76,18 +78,22 @@ const ProfileForm = ({ onSubmit }) => {
             type="number"
             value={enrollmentYear}
             onChange={(e) => setEnrollmentYear(e.target.value)}
-            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+            style={{ width: "95%", padding: "8px", marginTop: "5px" }}
             placeholder="例: 2022"
           />
         </label>
       </div>
-      <button
-        disabled={isButtonDisabled}
-        type="submit"
-        style={{ padding: "10px 20px", cursor: "pointer" }}
-      >
-        登録
-      </button>
+      <div className={styles.buttonContainer}>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={styles.submitButton}
+          disabled={isButtonDisabled}
+        >
+          登録
+        </Button>
+      </div>
     </form>
   );
 };
