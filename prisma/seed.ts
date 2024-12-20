@@ -67,6 +67,7 @@ async function main() {
       id: studentId,
       name: "テスト太郎君",
       enrollmentYear: 2022,
+      firebaseUid: "dummy-firebase-uid",
     },
   });
   console.log(createdStudent);
