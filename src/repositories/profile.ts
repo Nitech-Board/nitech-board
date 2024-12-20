@@ -14,7 +14,7 @@ export const getProfile = async (
   return profile;
 };
 
-export const createProfile = async ({
+export const createOrUpdateProfile = async ({
   name,
   firebaseUid,
   enrollmentYear,
@@ -25,11 +25,18 @@ export const createProfile = async ({
 }): Promise<Student> => {
   const prisma = getPrismaClient();
 
-  const profile = await prisma.student.create({
-    data: {
-      name,
+  const profile = await prisma.student.upsert({
+    where: {
       firebaseUid,
+    },
+    update: {
+      name,
       enrollmentYear,
+    },
+    create: {
+      name,
+      enrollmentYear,
+      firebaseUid,
     },
   });
   return profile;

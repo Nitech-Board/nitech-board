@@ -1,5 +1,5 @@
 import getFirebaseUid from "@/lib/authMiddleware";
-import { createProfile, getProfile } from "@/repositories/profile";
+import { createOrUpdateProfile, getProfile } from "@/repositories/profile";
 import { NextRequest, NextResponse } from "next/server";
 
 // プロフィールが存在したら，そのプロフィールを返す
@@ -16,6 +16,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 // プロフィールを作成し，作成したプロフィールを返す
+// 既にプロフィールが存在する場合,更新する
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const uid = await getFirebaseUid(req);
 
@@ -23,16 +24,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const { name, enrollmentYear } = await req.json();
+  const { nickname: name, enrollmentYear: enrollmentYearString } =
+    await req.json();
+  const enrollmentYear = parseInt(enrollmentYearString);
 
   try {
-    const profile = await createProfile({
+    const profile = await createOrUpdateProfile({
       name,
       firebaseUid: uid,
       enrollmentYear,
     });
     return NextResponse.json(profile, { status: 201 });
   } catch (e) {
+    console.error(e);
     return NextResponse.json(
       { message: e.message || "Failed to create profile" },
       { status: 500 }
