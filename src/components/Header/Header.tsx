@@ -26,7 +26,7 @@ export default function Header() {
           </h1>
         </a>
       </div>
-      <div style={{ alignItems: "right" }}>{loginState}</div>
+      <div style={{ textAlign: "right" }}>{loginState}</div>
     </header>
   );
 }
