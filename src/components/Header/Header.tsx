@@ -26,7 +26,7 @@ export default function Header() {
           </h1>
         </a>
       </div>
-      <div style={{ textAlign: "right" }}>{loginState}</div>
+      <div className={styles.loginState}>{loginState}</div>
     </header>
   );
 }
