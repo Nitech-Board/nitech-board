@@ -3,6 +3,7 @@
 .header {
   background-color: rgb(39, 213, 219);
   padding: 22px 10px;
+  display: flex;
 }
 
 .titleFont {
@@ -15,6 +16,12 @@
   color: #333;
   text-decoration: none;
   width: auto;
+}
+
+.loginState {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 .delaGothicOneRegular {

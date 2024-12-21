@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "../styles/global.css";
 import "@/lib/FirebaseConfig";
 import { APPLICATION_NAME } from "@/utils/const";
-import { AuthProvider } from "@/components/provider/AurhProvider";
+import { AuthProvider } from "@/components/provider/AuthProvider";
 
 export const metadata: Metadata = {
   title: APPLICATION_NAME,
