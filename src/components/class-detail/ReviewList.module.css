@@ -1,0 +1,29 @@
+.reviewList {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.reviewItem {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.ratingSection {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.commentSection {
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.noReviews {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+}

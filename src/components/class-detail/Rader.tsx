@@ -7,31 +7,47 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from "recharts";
+import { ReviewDataWithStudent } from "@/types/course";
 
 interface RaderProps {
+  reviews: ReviewDataWithStudent[];
   onScoreCalculated: (averageScore: number) => void;
 }
 
-function Rader({ onScoreCalculated }: RaderProps) {
+function Rader({ reviews, onScoreCalculated }: RaderProps) {
+  // レビューから各項目の平均を計算
+  const calculateAverage = (
+    key: keyof Pick<
+      ReviewDataWithStudent,
+      "clearityRating" | "testRating" | "homeworkRating"
+    >
+  ): number => {
+    if (reviews.length === 0) return 0; // レビューがない場合は0を返す
+
+    const total = reviews.reduce((sum, review) => sum + review[key], 0);
+    return total / reviews.length;
+  };
+
+  // レーダーチャート用データ
   const data = [
     {
       subject: "授業のわかりやすさ",
-      score: 3.75,
+      score: calculateAverage("clearityRating"),
       fullMark: 5,
     },
     {
       subject: "テストの簡単さ",
-      score: 4.2,
+      score: calculateAverage("testRating"),
       fullMark: 5,
     },
     {
       subject: "課題の楽さ",
-      score: 2.5,
+      score: calculateAverage("homeworkRating"),
       fullMark: 5,
     },
   ];
 
-  // 平均スコアを計算
+  // 全体の平均スコアを計算
   const averageScore =
     data.reduce((sum, item) => sum + item.score, 0) / data.length;
 

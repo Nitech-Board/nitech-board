@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ClassData from "../../../components/class-detail/ClassData";
 import Rader from "../../../components/class-detail/Rader";
+import ReviewList from "../../../components/class-detail/ReviewList";
 import styles from "./page.module.css";
 import { Rating } from "@mui/material";
 import { CourseDetailWithReviews } from "@/types/course";
 
 export default function ClassDetailPage() {
   const [courseDataWithReviews, setCourseDataWithReviews] = useState<
-    CourseDetailWithReviews | undefined
-  >();
+    CourseDetailWithReviews | null | undefined
+  >(undefined);
   const [averageScore, setAverageScore] = useState<number | null>(null);
   const router = useRouter();
 
@@ -22,10 +23,7 @@ export default function ClassDetailPage() {
     fetch(`/api/course-detail/${classNumber}`)
       .then((res) => {
         if (res.status === 200) return res.json();
-        else {
-          setCourseDataWithReviews(null);
-          throw new Error("授業情報が見つかりません");
-        }
+        else throw new Error("授業情報が見つかりません");
       })
       .then((data) => {
         setCourseDataWithReviews(data);
@@ -66,7 +64,16 @@ export default function ClassDetailPage() {
         )}
       </h1>
       <ClassData details={courseDataWithReviews.course} />
-      <Rader onScoreCalculated={handleScoreCalculated} />
+      <Rader
+        reviews={courseDataWithReviews.reviews}
+        onScoreCalculated={handleScoreCalculated}
+      />
+      {courseDataWithReviews.reviews.length > 0 ? (
+        <ReviewList reviews={courseDataWithReviews.reviews} />
+      ) : (
+        <p className={styles.noReviews}>まだレビューがありません。</p>
+      )}
+
       <button onClick={handleAddReview} className={styles.post_button}>
         レビューを投稿
       </button>
