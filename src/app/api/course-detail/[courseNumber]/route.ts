@@ -1,3 +1,4 @@
+import getFirebaseUid from "@/lib/authMiddleware";
 import { getCourseDetailByCourseNumber } from "@/repositories/course";
 import { getReviewsByCourseId } from "@/repositories/review";
 import { CourseDetailWithReviews } from "@/types/course";
@@ -12,6 +13,12 @@ export async function GET(
     params: Promise<{ courseNumber: string }>;
   }
 ): Promise<NextResponse> {
+  const uid = await getFirebaseUid(req);
+  if (!uid) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+  console.log(uid);
+
   const courseNumber = (await params).courseNumber;
   const courseDetail = await getCourseDetailByCourseNumber(courseNumber);
 
