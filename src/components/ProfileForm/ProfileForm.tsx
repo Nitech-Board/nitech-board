@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { useAuth } from "../provider/AurhProvider";
 import { Button } from "@mui/material";
 import styles from "./ProfileForm.module.css";
 import Loading from "../Loading/Loading";
+import { useAuth } from "../provider/AuthProvider";
 
 const ProfileForm = ({ onSubmit }) => {
   const user = useAuth();
@@ -14,7 +14,7 @@ const ProfileForm = ({ onSubmit }) => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (user === undefined) return;
+      if (!user) return;
       const token = await user.getIdToken();
       // プロフィール情報を取得
       fetch("/api/profile", {
