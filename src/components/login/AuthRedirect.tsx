@@ -25,6 +25,8 @@ export default function AuthRedirect({
         icon: "info",
         confirmButtonText: "ログイン",
         allowOutsideClick: false,
+        allowEscapeKey: false,
+        keydownListenerCapture: true,
       }).then((result) => {
         if (result.isConfirmed) {
           router.push("/login");

@@ -3,7 +3,7 @@
 import React from "react";
 import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import Swal from "sweetalert2";
-import { useAuth } from "@/components/provider/AurhProvider";
+import { useAuth } from "@/components/provider/AuthProvider";
 
 const ProfilePage = () => {
   const user = useAuth();

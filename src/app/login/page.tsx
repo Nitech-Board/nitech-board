@@ -21,8 +21,6 @@ export default function LoginPage() {
   const auth = getAuth(firebaseApp);
   // ログインボタンが押されたとき
   const doLogin = () => {
-    //const auth = getAuth();
-
     // Firebaseで用意されているメールアドレスとパスワードでログインするための関数
     signInWithEmailAndPassword(auth, email, password) //authが悪いのかも？？
       .then((userCredential) => {
@@ -69,6 +67,11 @@ export default function LoginPage() {
       />
       {/* エラーのメッセージの表示 */}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
+      <p>
+        ユーザー登録がまだの方は
+        <a href="/register">こちら</a>
+      </p>
     </div>
   );
 }
