@@ -59,7 +59,7 @@ export default function WebSocketPage() {
     checkProfile();
   }, [user, router]);
 
-  const funcSubmit = () => {
+  const funcSubmit = async () => {
     // 全ての評価が設定されているか確認
     if (
       clearityRating === null ||
@@ -81,9 +81,15 @@ export default function WebSocketPage() {
       comment,
     };
 
+    const token = await user.getIdToken();
+
     setIsButtonDisabled(true);
     fetch(`/api/review/${classNumber}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ reviewData }),
     }).then((res) => {
       if (res.status !== 200) {
