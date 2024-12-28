@@ -9,6 +9,10 @@ import AuthRedirect from "@/components/login/AuthRedirect";
 export const metadata: Metadata = {
   title: APPLICATION_NAME,
   description: "名古屋工業大学の講義情報を共有するためのWebアプリケーション",
+
+  other: {
+    "google-site-verification": "KMOoB7g-MYSAXb-1bOkdpQ9OulbnvR8XMOAtss_QBYs",
+  },
 };
 
 export default function RootLayout({
