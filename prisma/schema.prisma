@@ -11,6 +11,7 @@ datasource db {
 
 model Student {
   id             String   @id @default(cuid())
+  firebaseUid    String   @unique @map("firebase_uid")
   name           String
   enrollmentYear Int      @map("enrollment_year")
   reviews        Review[]
