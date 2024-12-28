@@ -4,6 +4,7 @@ import "../styles/global.css";
 import "@/lib/FirebaseConfig";
 import { APPLICATION_NAME } from "@/utils/const";
 import { AuthProvider } from "@/components/provider/AuthProvider";
+import AuthRedirect from "@/components/login/AuthRedirect";
 
 export const metadata: Metadata = {
   title: APPLICATION_NAME,
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <AuthProvider>
-        <body>
-          <Header />
-          {children}
-        </body>
+        <AuthRedirect>
+          <body>
+            <Header />
+            {children}
+          </body>
+        </AuthRedirect>
       </AuthProvider>
     </html>
   );
