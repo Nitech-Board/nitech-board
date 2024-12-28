@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { RatingInput } from "../../../components/Review/RatingInput";
 import { TextInput } from "../../../components/Review/TextInput";
@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { ReviewData } from "@/types/course";
 import Swal from "sweetalert2";
+import { useAuth } from "@/components/provider/AuthProvider";
 
 export default function WebSocketPage() {
   const [clearityRating, setClarityRating] = useState<number | null>(null);
@@ -16,7 +17,47 @@ export default function WebSocketPage() {
   const [comment, setComment] = useState<string>("");
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const { classNumber } = useParams();
+
+  const user = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!user || !router) return;
+
+    const checkProfile = async () => {
+      const token = await user.getIdToken();
+      // プロフィールが存在するか確認
+      const res = await fetch("/api/profile/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 200) return; // プロフィールが存在する場合
+      // その他のエラー
+      if (res.status !== 404) {
+        Swal.fire({
+          title: "エラー" + res.status,
+          icon: "error",
+          text: res.statusText,
+        });
+        return;
+      }
+      // プロフィールが存在しない場合
+      Swal.fire({
+        title: "プロフィールが存在しません",
+        text: "レビューを投稿するにはプロフィールを作成してください",
+        icon: "info",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        keydownListenerCapture: true,
+      }).then(() => {
+        router.push("/profile");
+      });
+    };
+    checkProfile();
+  }, [user, router]);
 
   const funcSubmit = () => {
     // 全ての評価が設定されているか確認

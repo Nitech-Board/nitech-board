@@ -12,6 +12,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const profile = await getProfile(uid);
 
+  if (!profile) {
+    return NextResponse.json({ message: "Profile not found" }, { status: 404 });
+  }
+
   return NextResponse.json(profile, { status: 200 });
 }
 
