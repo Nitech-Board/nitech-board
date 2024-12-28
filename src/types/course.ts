@@ -16,6 +16,8 @@ export interface ReviewData {
 
 export interface ReviewDataWithStudent extends ReviewData {
   studentId: string;
+  studentName: string;
+  studentEnrollmentYear: number;
 }
 
 export interface CourseDetail {
