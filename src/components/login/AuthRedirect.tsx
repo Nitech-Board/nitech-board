@@ -27,10 +27,8 @@ export default function AuthRedirect({
         allowOutsideClick: false,
         allowEscapeKey: false,
         keydownListenerCapture: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          router.push("/login");
-        }
+      }).then(() => {
+        router.push("/login");
       });
     }
   }, [user, router]);
