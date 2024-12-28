@@ -8,11 +8,14 @@ import ReviewList from "../../../components/class-detail/ReviewList";
 import styles from "./page.module.css";
 import { Rating } from "@mui/material";
 import { CourseDetailWithReviews } from "@/types/course";
+import { useAuth } from "@/components/provider/AuthProvider";
+import Loading from "@/components/Loading/Loading";
 
 export default function ClassDetailPage() {
   const [courseDataWithReviews, setCourseDataWithReviews] = useState<
     CourseDetailWithReviews | null | undefined
   >(undefined);
+  const user = useAuth();
   const [averageScore, setAverageScore] = useState<number | null>(null);
   const router = useRouter();
 
@@ -20,18 +23,33 @@ export default function ClassDetailPage() {
   const { classNumber } = useParams();
 
   useEffect(() => {
-    fetch(`/api/course-detail/${classNumber}`)
-      .then((res) => {
-        if (res.status === 200) return res.json();
-        else throw new Error("授業情報が見つかりません");
-      })
-      .then((data) => {
-        setCourseDataWithReviews(data);
-      })
-      .catch((error) => {
+    if (!user || !classNumber) return;
+
+    const fetchCourseDetail = async () => {
+      const token = await user.getIdToken();
+
+      try {
+        const res = await fetch(`/api/course-detail/${classNumber}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setCourseDataWithReviews(data);
+        } else {
+          throw new Error("授業情報が見つかりません");
+        }
+      } catch (error) {
         console.error(error);
-      });
-  }, [classNumber]);
+      }
+    };
+
+    fetchCourseDetail();
+  }, [user, classNumber]);
 
   // 投稿ボタンが押された時
   const handleAddReview = () => {
@@ -43,8 +61,7 @@ export default function ClassDetailPage() {
     setAverageScore(averageScore);
   };
 
-  if (courseDataWithReviews === undefined)
-    return <div className={styles.container}>Loading...</div>;
+  if (courseDataWithReviews === undefined) return <Loading />;
 
   if (courseDataWithReviews === null)
     return <div className={styles.container}>授業情報が見つかりません。</div>;
