@@ -1,35 +1,49 @@
 import React from "react";
 import styles from "./ReviewList.module.css";
 import { ReviewDataWithStudent } from "@/types/course";
-import { Rating } from "@mui/material";
+import { Avatar, Rating } from "@mui/material";
 
 interface ReviewListProps {
   reviews: ReviewDataWithStudent[];
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
+const Review = ({ review }: { review: ReviewDataWithStudent }) => {
   return (
-    <div className={styles.reviewList}>
-      {reviews.map((review, index) => (
-        <div key={index} className={styles.reviewItem}>
+    <div className={styles.reviewContainer}>
+      <div className={styles.reviewProfile}>
+        <Avatar>{review.studentEnrollmentYear % 100}</Avatar>
+        <p>{review.studentName}</p>
+      </div>
+      <div className={styles.reviewContent}>
+        <div>
           <div className={styles.ratingSection}>
-            <strong>授業のわかりやすさ:</strong>
+            <strong className={styles.description}>授業のわかりやすさ</strong>
             <Rating value={review.clearityRating} precision={0.1} readOnly />
           </div>
           <div className={styles.ratingSection}>
-            <strong>テストの簡単さ:</strong>
+            <strong className={styles.description}>テストの簡単さ</strong>
             <Rating value={review.testRating} precision={0.1} readOnly />
           </div>
           <div className={styles.ratingSection}>
-            <strong>課題の楽さ:</strong>
+            <strong className={styles.description}>課題の楽さ</strong>
             <Rating value={review.homeworkRating} precision={0.1} readOnly />
           </div>
           {review.comment && (
             <div className={styles.commentSection}>
-              <strong>コメント:</strong> {review.comment}
+              <strong>コメント :</strong> {review.comment}
             </div>
           )}
         </div>
+      </div>
+    </div>
+  );
+};
+
+const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
+  return (
+    <div className={styles.reviewList}>
+      {reviews.map((review, index) => (
+        <Review key={index} review={review} />
       ))}
     </div>
   );
