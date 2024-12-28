@@ -1,13 +1,31 @@
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 15px 15px 15px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+}
+
+.reviewProfile {
+  display: flex;
+  align-items: center;
+  margin: 0 20px 0 0;
+  gap: 10px;
+}
+
+.reviewContent {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
 .reviewList {
   margin-top: 20px;
   width: 100%;
-}
-
-.reviewItem {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
 }
 
 .ratingSection {
@@ -15,6 +33,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.description {
+  min-width: 140px;
 }
 
 .commentSection {
