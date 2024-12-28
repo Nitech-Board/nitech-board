@@ -1,3 +1,5 @@
+import getFirebaseUid from "@/lib/authMiddleware";
+import { getProfile } from "@/repositories/profile";
 import { insertReview } from "@/repositories/review";
 import { ReviewData } from "@/types/course";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,9 +13,18 @@ export async function POST(
   }
 ): Promise<NextResponse> {
   const courseNumber = (await params).courseNumber;
+  const uid = await getFirebaseUid(req);
 
-  // TODO: ログイン機能が実装されたら、ログインユーザーのIDを取得する
-  const studentId = "cm42d79m00001uw9m7dnjfevw";
+  if (!uid) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const studentProfile = await getProfile(uid);
+  if (!studentProfile) {
+    return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+  }
+  const studentId = studentProfile.id;
+
   const data = await req.json();
 
   const review = reviewDataValidator(data.reviewData);

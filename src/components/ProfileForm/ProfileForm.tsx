@@ -17,25 +17,27 @@ const ProfileForm = ({ onSubmit }) => {
       if (!user) return;
       const token = await user.getIdToken();
       // プロフィール情報を取得
-      fetch("/api/profile", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((data) => {
-              setNickname(data.name);
-              setEnrollmentYear(data.enrollmentYear);
-            });
-          } else {
-            throw new Error("Failed to fetch profile");
-          }
-        })
-        .finally(() => {
-          setIsloading(false);
+      try {
+        const response = await fetch("/api/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
+
+        if (response.ok) {
+          const data = await response.json();
+          setNickname(data.name);
+          setEnrollmentYear(data.enrollmentYear);
+        } else if (response.status !== 404) {
+          throw new Error("Failed to fetch profile");
+        }
+      } catch (error) {
+        console.error(error);
+        Swal.fire("エラー", "プロフィール情報の取得に失敗しました。", "error");
+      } finally {
+        setIsloading(false);
+      }
     };
 
     fetchProfile();
