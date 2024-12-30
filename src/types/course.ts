@@ -25,6 +25,7 @@ export interface CourseDetail {
   title: string;
   teacherName: string;
   courseNumber: string;
+  summary?: string;
 }
 
 export interface CourseDetailWithReviews {

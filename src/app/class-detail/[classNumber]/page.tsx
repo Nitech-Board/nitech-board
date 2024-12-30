@@ -6,10 +6,11 @@ import ClassData from "../../../components/class-detail/ClassData";
 import Rader from "../../../components/class-detail/Rader";
 import ReviewList from "../../../components/class-detail/ReviewList";
 import styles from "./page.module.css";
-import { Rating } from "@mui/material";
+import { Divider, Rating } from "@mui/material";
 import { CourseDetailWithReviews } from "@/types/course";
 import { useAuth } from "@/components/provider/AuthProvider";
 import Loading from "@/components/Loading/Loading";
+import { AiOutlineOpenAI } from "react-icons/ai";
 
 export default function ClassDetailPage() {
   const [courseDataWithReviews, setCourseDataWithReviews] = useState<
@@ -85,6 +86,19 @@ export default function ClassDetailPage() {
         reviews={courseDataWithReviews.reviews}
         onScoreCalculated={handleScoreCalculated}
       />
+
+      {courseDataWithReviews.course.summary && (
+        <div className={styles.summary}>
+          <Divider />
+          <div className={styles.aiTitle}>
+            <AiOutlineOpenAI size={36} />
+            <h1>AIによる要約</h1>
+          </div>
+          <p>{courseDataWithReviews.course.summary}</p>
+          <Divider />
+        </div>
+      )}
+
       {courseDataWithReviews.reviews.length > 0 ? (
         <ReviewList reviews={courseDataWithReviews.reviews} />
       ) : (
