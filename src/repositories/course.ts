@@ -1,9 +1,13 @@
-import { CourseDetail, CourseSummary, CourseWithNumbers } from "@/types/course";
+import {
+  CourseDetail,
+  CourseSummary,
+  CourseWithNumbersAndTeacher,
+} from "@/types/course";
 import { getPrismaClient } from "@/utils/prisma";
 import { getCourseDetailByCourseNumberQuery } from "@prisma/client/sql";
 
 const courseListFormatter = (
-  courseRows: CourseWithNumbers[]
+  courseRows: CourseWithNumbersAndTeacher[]
 ): CourseSummary[] => {
   const courseList: CourseSummary[] = [];
 
@@ -12,6 +16,7 @@ const courseListFormatter = (
       courseList.push({
         name: courseRow.title,
         courseNumber: courseNumber.number,
+        teacher: courseRow.teacher.lastName + " " + courseRow.teacher.firstName,
       });
     });
   });
@@ -21,9 +26,10 @@ const courseListFormatter = (
 
 export const getCourseList = async () => {
   const prisma = getPrismaClient();
-  const courseRows: CourseWithNumbers[] = await prisma.course.findMany({
+  const courseRows = await prisma.course.findMany({
     include: {
       courseNumbers: true,
+      teacher: true,
     },
   });
 

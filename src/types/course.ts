@@ -1,11 +1,15 @@
-import { Course, CourseNumber } from "@prisma/client";
+import { Course, CourseNumber, Teacher } from "@prisma/client";
 
 export interface CourseSummary {
   courseNumber: string;
   name: string;
+  teacher: string;
 }
 
 export type CourseWithNumbers = Course & { courseNumbers: CourseNumber[] };
+export type CourseWithNumbersAndTeacher = CourseWithNumbers & {
+  teacher: Teacher;
+};
 
 export interface ReviewData {
   clearityRating: number;
