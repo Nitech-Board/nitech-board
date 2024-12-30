@@ -38,6 +38,8 @@ model Course {
   id            String         @id @default(cuid())
   title         String
   teacherId     String         @map("teacher_id")
+  goodSummary   String?        @map("good_summary")
+  badSummary    String?        @map("bad_summary")
   teacher       Teacher        @relation(fields: [teacherId], references: [id])
   courseNumbers CourseNumber[]
   reviews       Review[]
@@ -69,8 +71,8 @@ model Review {
   homeworkRating Int    @map("homework_rating")
   comment        String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("review")
 }
