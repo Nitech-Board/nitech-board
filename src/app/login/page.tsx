@@ -6,6 +6,9 @@ import { firebaseApp } from "../../lib/FirebaseConfig";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "../../components/login/LoginForm";
+import styles from "./page.module.css";
+import { Box, Typography, Button, Alert } from "@mui/material";
+
 //import { auth } from "@/lib/FirebaseConfig";
 
 export default function LoginPage() {
@@ -34,9 +37,7 @@ export default function LoginPage() {
           return; //このreturnで不正アクセスをはじく
         }
 
-        // ログインができたかどうかをわかりやすくするためのアラート
-        alert("ログインOK!");
-        console.log(user);
+        // ログインできた時
         router.push("/search");
       })
       .catch((error) => {
@@ -54,8 +55,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>ログインページ</h2>
+    <Box className={styles.container}>
+      <Typography variant="h4" className={styles.title}>
+        ログイン
+      </Typography>
       <LoginForm
         email={email}
         password={password}
@@ -65,13 +68,13 @@ export default function LoginPage() {
         togglePasswordVisibility={() => setShowPassword(!showPassword)}
         onLogin={doLogin}
       />
-      {/* エラーのメッセージの表示 */}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-      <p>
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+      <Typography className={styles.registerLink}>
         ユーザー登録がまだの方は
-        <a href="/register">こちら</a>
-      </p>
-    </div>
+        <Button href="/register" color="primary">
+          こちら
+        </Button>
+      </Typography>
+    </Box>
   );
 }

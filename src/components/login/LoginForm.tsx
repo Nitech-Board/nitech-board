@@ -1,4 +1,6 @@
 import React from "react";
+import { Box, TextField, Button } from "@mui/material";
+import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
   email: string;
@@ -16,39 +18,39 @@ const LoginForm: React.FC<LoginFormProps> = ({
   showPassword,
   setEmail,
   setPassword,
-  togglePasswordVisibility,
   onLogin,
 }) => {
   return (
-    <div>
-      <p>メールアドレスとパスワードを入力してください</p>
-
-      {/* メールアドレス入力 */}
-      <div>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-
-      {/* パスワード入力 */}
-      <div>
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={togglePasswordVisibility}>
-          {showPassword ? "隠す" : "表示"}
-        </button>
-      </div>
-
-      {/* ログインボタン */}
-      <button onClick={onLogin}>ログイン</button>
-    </div>
+    <Box component="form" className={styles.form}>
+      <TextField
+        label="メールアドレス"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        fullWidth
+        required
+        className={styles.input}
+      />
+      <TextField
+        label="パスワード"
+        type={showPassword ? "text" : "password"}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        fullWidth
+        required
+        className={styles.input}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={onLogin}
+        fullWidth
+        size="large"
+        className={styles.button}
+      >
+        ログイン
+      </Button>
+    </Box>
   );
 };
 
