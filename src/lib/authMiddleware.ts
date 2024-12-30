@@ -33,7 +33,8 @@ export default async function getFirebaseUid(
     const uid = decodedToken.uid;
     const email = decodedToken.email;
     // メールアドレスのドメインが正しいかどうかを確認
-    if (email.endsWith(allowedDomain)) return uid;
+    if (decodedToken.email_verified && email.endsWith(allowedDomain))
+      return uid;
   } catch (e) {
     console.error(e);
   }
