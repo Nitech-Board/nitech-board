@@ -1,6 +1,9 @@
 import { ReviewData, ReviewDataWithStudent } from "@/types/course";
 import { getPrismaClient } from "@/utils/prisma";
-import { getReviewsByCourseIdQuery } from "@prisma/client/sql";
+import {
+  getCommentsQuery,
+  getReviewsByCourseIdQuery,
+} from "@prisma/client/sql";
 
 const getCourseIdByCourseNumber = async (
   courseNumber: string
@@ -52,6 +55,34 @@ export const getReviewsByCourseId = async (
   const res = await prisma.$queryRawTyped(getReviewsByCourseIdQuery(courseId));
 
   return res.map(reviewFormatter);
+};
+
+export const getComments = async (
+  courseId: string,
+  limit?: number
+): Promise<string[]> => {
+  const prisma = getPrismaClient();
+  const res = await prisma.$queryRawTyped(getCommentsQuery(courseId));
+
+  if (!limit) {
+    return res.map((comment) => comment.comment);
+  }
+
+  return res.map((comment) => comment.comment).slice(0, limit);
+};
+
+export const updateSummary = async (courseId: string, summary: string) => {
+  const prisma = getPrismaClient();
+  const res = await prisma.course.update({
+    where: {
+      id: courseId,
+    },
+    data: {
+      summary,
+    },
+  });
+
+  return res;
 };
 
 const reviewFormatter = (
