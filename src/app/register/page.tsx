@@ -10,12 +10,12 @@ import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { firebaseApp } from "../../lib/FirebaseConfig";
+import { allowedDomain } from "@/utils/const";
 
 export default function Register() {
   // useStateでユーザーが入力したメールアドレスとパスワードをemailとpasswordに格納する
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const allowedDomain = "@stn.nitech.ac.jp";
 
   const router = useRouter();
 

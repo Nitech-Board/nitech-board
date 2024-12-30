@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { auth } from "firebase-admin";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
+import { allowedDomain } from "@/utils/const";
 
 if (!getApps().length) {
   initializeApp({
@@ -23,10 +24,18 @@ export default async function getFirebaseUid(
   const token = authHeader.replace("Bearer ", "");
 
   // verify token
-  const uid = await auth()
-    .verifyIdToken(token)
-    .then((decodedToken) => decodedToken.uid)
-    .catch(() => null);
-
-  return uid;
+  // const uid = await auth()
+  //   .verifyIdToken(token)
+  //   .then((decodedToken) => decodedToken.uid)
+  //   .catch(() => null);
+  try {
+    const decodedToken = await auth().verifyIdToken(token);
+    const uid = decodedToken.uid;
+    const email = decodedToken.email;
+    // メールアドレスのドメインが正しいかどうかを確認
+    if (email.endsWith(allowedDomain)) return uid;
+  } catch (e) {
+    console.error(e);
+  }
+  return null;
 }
