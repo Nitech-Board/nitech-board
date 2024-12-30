@@ -40,8 +40,14 @@
 }
 
 .commentSection {
+  display: flex;
   margin-top: 10px;
   gap: 10px;
+  white-space: pre-line;
+}
+
+.commentSection p {
+  margin: 0;
 }
 
 .noReviews {
