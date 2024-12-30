@@ -39,7 +39,8 @@ const courseDetailFormatter = (
     title: courseDetail.title,
     teacherName: courseDetail.last_name + " " + courseDetail.first_name,
     courseNumber: courseDetail.number,
-    summary: courseDetail.summary,
+    goodSummary: courseDetail.good_summary,
+    badSummary: courseDetail.bad_summary,
   };
 };
 

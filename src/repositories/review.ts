@@ -71,14 +71,19 @@ export const getComments = async (
   return res.map((comment) => comment.comment).slice(0, limit);
 };
 
-export const updateSummary = async (courseId: string, summary: string) => {
+export const updateSummary = async (
+  courseId: string,
+  goodSummary: string,
+  badSummary: string
+) => {
   const prisma = getPrismaClient();
   const res = await prisma.course.update({
     where: {
       id: courseId,
     },
     data: {
-      summary,
+      goodSummary,
+      badSummary,
     },
   });
 

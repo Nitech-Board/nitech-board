@@ -13,27 +13,26 @@ export const setSummary = async (courseId: string): Promise<string> => {
 
   // OpenAI APIを使って、コメントを要約
   const summary = await createSummary(comments);
+  if (summary.length !== 2) {
+    return "OpenAPI format error";
+  }
 
   // 要約されたコメントを DB に保存
-  updateSummary(courseId, summary);
+  updateSummary(courseId, summary[0], summary[1]);
 
   return "要約されたコメント";
 };
 
-const createSummary = async (comments: string[]): Promise<string> => {
+const createSummary = async (comments: string[]): Promise<string[]> => {
   const systemPrompt = `
-  以下にある大学の講義のレビューコメントが複数与えられます。
-  コメントから、講義の良い点と悪い点を要約し、
-  良い点：
-  悪い点：
-  のフォーマットに従い出力して下さい
-  良い点と悪い点の間には、改行を入れてください。
+  大学の授業についてのコメントが複数あります。
+  一文目に良い点を、二文目に悪い点を、改行区切りで要約してください。
   `;
 
-  let userPrompt = "";
+  let commentPrompt = "";
 
   comments.forEach((comment) => {
-    userPrompt += comment + "\n";
+    commentPrompt += comment + "\n";
   });
 
   const completion = await openai.chat.completions.create({
@@ -43,12 +42,12 @@ const createSummary = async (comments: string[]): Promise<string> => {
         role: "system",
         content: systemPrompt,
       },
-      {
-        role: "user",
-        content: userPrompt,
-      },
+      { role: "user", content: commentPrompt },
     ],
   });
 
-  return completion.choices[0].message.content;
+  const result = completion.choices[0].message.content;
+  console.log(result);
+
+  return result.split("\n");
 };

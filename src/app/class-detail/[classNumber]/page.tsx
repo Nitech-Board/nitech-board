@@ -87,17 +87,25 @@ export default function ClassDetailPage() {
         onScoreCalculated={handleScoreCalculated}
       />
 
-      {courseDataWithReviews.course.summary && (
-        <div className={styles.summary}>
-          <Divider />
-          <div className={styles.aiTitle}>
-            <AiOutlineOpenAI size={36} />
-            <h1>AIによる要約</h1>
+      {courseDataWithReviews.course.goodSummary &&
+        courseDataWithReviews.course.badSummary && (
+          <div className={styles.summary}>
+            <Divider />
+            <div className={styles.aiTitle}>
+              <AiOutlineOpenAI size={36} />
+              <h1>AIによる要約</h1>
+            </div>
+            <section>
+              <h2>良い点</h2>
+              <p>{courseDataWithReviews.course.goodSummary}</p>
+            </section>
+            <section>
+              <h2>悪い点</h2>
+              <p>{courseDataWithReviews.course.badSummary}</p>
+            </section>
+            <Divider />
           </div>
-          <p>{courseDataWithReviews.course.summary}</p>
-          <Divider />
-        </div>
-      )}
+        )}
 
       {courseDataWithReviews.reviews.length > 0 ? (
         <ReviewList reviews={courseDataWithReviews.reviews} />
