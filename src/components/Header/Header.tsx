@@ -1,46 +1,37 @@
 "use client";
 import { APPLICATION_NAME } from "@/utils/const";
 import styles from "./Header.module.css";
-import { useAuth } from "../provider/AuthProvider";
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { auth } from "@/lib/FirebaseConfig";
+import { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Drawer } from "@mui/material";
+import HeaderMenu from "./Menu/HeaderMenu";
+import { usePathname } from "next/navigation";
 
 // aタグのリンクが横に長くなるのを防ぐために、divで囲んでいる
 export default function Header() {
-  const user = useAuth();
-  const [loginState, setLoginState] = useState("ログインしていません");
-
-  useEffect(() => {
-    if (user) {
-      setLoginState("ログイン中");
-    } else {
-      setLoginState("ログインしていません");
-    }
-  }, [user]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const onButtonClick = () => {
-    if (!user) return;
-    // logout
-    Swal.fire({
-      title: "ログアウトしますか？",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "ログアウト",
-      cancelButtonText: "キャンセル",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        auth.signOut().then(() => {
-          Swal.fire({
-            title: "ログアウトしました",
-            icon: "success",
-          }).then(() => {
-            location.reload();
-          });
-        });
-      }
-    });
+    setIsMenuOpen((prev) => !prev);
   };
+
+  // /loginページではメニューを表示しない
+  if (pathname === "/login" || pathname === "/register") {
+    return (
+      <header className={styles.header}>
+        <div style={{ width: "fit-content" }}>
+          <a href="/">
+            <h1
+              className={`${styles.delaGothicOneRegular} ${styles.titleFont}`}
+            >
+              {APPLICATION_NAME}
+            </h1>
+          </a>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className={styles.header}>
@@ -51,9 +42,17 @@ export default function Header() {
           </h1>
         </a>
       </div>
-      <button onClick={onButtonClick} className={styles.loginState}>
-        {loginState}
+
+      <button onClick={onButtonClick} className={styles.menuIcon}>
+        <GiHamburgerMenu size={24} />
       </button>
+      <Drawer
+        anchor="right"
+        open={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+      >
+        <HeaderMenu closeMenu={() => setIsMenuOpen(false)} />
+      </Drawer>
     </header>
   );
 }
