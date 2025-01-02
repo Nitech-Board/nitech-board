@@ -29,6 +29,8 @@ export interface CourseDetail {
   title: string;
   teacherName: string;
   courseNumber: string;
+  goodSummary?: string;
+  badSummary?: string;
 }
 
 export interface CourseDetailWithReviews {

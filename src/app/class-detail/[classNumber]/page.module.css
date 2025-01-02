@@ -36,3 +36,18 @@
   align-items: center;
   height: 50vh;
 }
+
+.aiTitle {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.summary {
+  width: 60vw;
+}
+
+.summary p {
+  font-size: large;
+}

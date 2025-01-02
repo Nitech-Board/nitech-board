@@ -17,7 +17,6 @@ export async function GET(
   if (!uid) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
-  console.log(uid);
 
   const courseNumber = (await params).courseNumber;
   const courseDetail = await getCourseDetailByCourseNumber(courseNumber);
