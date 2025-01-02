@@ -11,6 +11,9 @@ export const SearchResults = ({ results }: { results: CourseSummary[] }) => {
             <div className={styles.courseNumber}>
               <strong>時間割番号:</strong> {result.courseNumber}
             </div>
+            <div className={styles.courseNumber}>
+              <strong>担当教員:</strong> {result.teacher}
+            </div>
             <div className={styles.courseName}>
               <strong>授業科目名:</strong>{" "}
               <a
