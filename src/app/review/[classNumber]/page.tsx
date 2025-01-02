@@ -105,7 +105,7 @@ export default function WebSocketPage() {
         title: "レビューを投稿しました",
         icon: "success",
       }).then(() => {
-        router.push("/search");
+        router.push(`/class-detail/${classNumber}`);
       });
     });
   };
