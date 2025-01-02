@@ -4,9 +4,11 @@ import React from "react";
 import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import Swal from "sweetalert2";
 import { useAuth } from "@/components/provider/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
   const user = useAuth();
+  const router = useRouter();
 
   const handleFormSubmit = async (profileData) => {
     const { nickname, enrollmentYear } = profileData;
@@ -36,8 +38,10 @@ const ProfilePage = () => {
       // SweetAlertで成功アラートを表示
       Swal.fire({
         title: "プロフィール登録完了",
-        text: `ニックネーム: ${nickname}\n入学年度: ${enrollmentYear}`,
+        html: `ニックネーム: <b>${nickname}</b> <br> 入学年度: <b>${enrollmentYear}</b>`,
         icon: "success",
+      }).then(() => {
+        router.push("/search");
       });
     } else {
       console.log(token);
@@ -47,7 +51,7 @@ const ProfilePage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1 style={{ textAlign: "center" }}>プロフィール登録</h1>
+      <h1 style={{ textAlign: "center" }}>プロフィール設定</h1>
       <ProfileForm onSubmit={handleFormSubmit} />
     </div>
   );
