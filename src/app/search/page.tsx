@@ -7,7 +7,9 @@ import { CourseSummary } from "../../types/course";
 import { SearchForm } from "../../components/Search/SearchForm";
 
 export default function WebSocketPage() {
-  const [courseList, setCourseList] = useState<CourseSummary[]>([]);
+  const [courseList, setCourseList] = useState<CourseSummary[] | undefined>(
+    undefined
+  );
   const [searchResults, setSearchResults] = useState<CourseSummary[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
@@ -22,6 +24,7 @@ export default function WebSocketPage() {
 
   // 子コンポーネントから受け取った検索条件を処理
   const handleSearch = (query: { courseNumber: string; name: string }) => {
+    if (!courseList) return;
     const results = funcSearch(query);
     setSearchResults(results);
     setHasSearched(true);
@@ -42,7 +45,7 @@ export default function WebSocketPage() {
   return (
     <div className={styles.body}>
       <h1>コースを検索</h1>
-      <SearchForm onSearch={handleSearch} />
+      <SearchForm isButtonDisabled={!courseList} onSearch={handleSearch} />
       {hasSearched && <SearchResults results={searchResults} />}
     </div>
   );

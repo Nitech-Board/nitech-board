@@ -1,6 +1,8 @@
 SELECT
   course.id,
   course.title,
+  course.good_summary,
+  course.bad_summary,
   teacher.first_name,
   teacher.last_name,
   course_number.number

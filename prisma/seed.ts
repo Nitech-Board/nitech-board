@@ -26,11 +26,6 @@ async function main() {
     const [lastName, firstName] = teacher.name.split(" ");
     const id = getCuid();
 
-    // TRUNCATE CLASS DATA
-    await prisma.courseNumber.deleteMany();
-    await prisma.course.deleteMany();
-    await prisma.teacher.deleteMany();
-
     const createdTeacher = await prisma.teacher.upsert({
       where: { id },
       update: {},

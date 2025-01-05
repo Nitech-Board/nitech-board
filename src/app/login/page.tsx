@@ -43,8 +43,8 @@ export default function LoginPage() {
       .catch((error) => {
         // エラーメッセージのセット（代入）
         if (
-          error.code === "auth/user-not-found" ||
-          error.code === "auth/wrong-password"
+          error.code === "auth/invalid-credential" ||
+          error.code === "auth/invalid-email"
         ) {
           setErrorMessage("メールアドレスまたはパスワードが正しくありません。");
         } else {
