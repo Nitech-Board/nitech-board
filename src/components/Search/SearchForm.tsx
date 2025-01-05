@@ -5,9 +5,13 @@ import styles from "./SearchForm.module.css";
 
 interface SearchFormProps {
   onSearch: (query: { courseNumber: string; name: string }) => void;
+  isButtonDisabled: boolean;
 }
 
-export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
+export const SearchForm: React.FC<SearchFormProps> = ({
+  onSearch,
+  isButtonDisabled,
+}) => {
   const [courseNumber, setCourseNumber] = useState<string>("");
   const [name, setName] = useState<string>("");
 
@@ -33,7 +37,11 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
       />
       <p>科目名</p>
       <input type="text" value={name} onChange={handleNameChange} />
-      <button type="button" onClick={handleSearchClick}>
+      <button
+        disabled={isButtonDisabled}
+        type="button"
+        onClick={handleSearchClick}
+      >
         検索
       </button>
     </div>

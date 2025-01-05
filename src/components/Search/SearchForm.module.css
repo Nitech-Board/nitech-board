@@ -23,6 +23,11 @@
   font-size: 16px;
 }
 
+.body button:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed !important;
+}
+
 /* 検索ボタン */
 .body button {
   display: block;
