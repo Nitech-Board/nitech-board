@@ -1,7 +1,6 @@
 import { Teacher } from "../seed";
 
 const teachers: Teacher[] = [
-  //知能
   {
     name: "烏山 昌幸",
     course: [
