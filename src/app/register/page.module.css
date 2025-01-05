@@ -1,0 +1,35 @@
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.input {
+  max-width: 700px;
+  width: 110%;
+}
+
+.button {
+  max-width: 300px;
+  width: 110%;
+  margin-top: 15px;
+}
