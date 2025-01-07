@@ -30,7 +30,9 @@ const Review = ({ review }: { review: ReviewDataWithStudent }) => {
           </div>
           {review.comment && (
             <div className={styles.commentSection}>
-              <strong>コメント :</strong>
+              <p>
+                <strong>コメント :</strong>{" "}
+              </p>
               <p>{review.comment}</p>
             </div>
           )}

@@ -5,6 +5,26 @@
   margin-top: 32px;
 }
 
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .titleContainer {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .titleContainer h1 {
+    margin: 0;
+  }
+}
+
+.titleContainer span {
+  font-size: 24px;
+}
+
 /* 投稿ボタン */
 .post_button {
   padding: 8px 32px;
@@ -46,6 +66,12 @@
 
 .summary {
   width: 60vw;
+}
+
+@media (max-width: 768px) {
+  .summary {
+    width: 90vw;
+  }
 }
 
 .summary p {

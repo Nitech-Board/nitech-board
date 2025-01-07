@@ -69,18 +69,18 @@ export default function ClassDetailPage() {
 
   return (
     <div className={styles.container}>
-      <h1>
-        {courseDataWithReviews.course.title}{" "}
+      <div className={styles.titleContainer}>
+        <h1>{courseDataWithReviews.course.title} </h1>
         {averageScore !== null && (
-          <>
+          <h1>
             <span className={styles.total_value}>
               {averageScore.toFixed(2)}
             </span>
             {/* 総合評価を★で表示 */}
             <Rating value={averageScore} precision={0.1} readOnly />
-          </>
+          </h1>
         )}
-      </h1>
+      </div>
       <ClassData details={courseDataWithReviews.course} />
       <Rader
         reviews={courseDataWithReviews.reviews}
