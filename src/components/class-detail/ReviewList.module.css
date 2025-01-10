@@ -46,6 +46,13 @@
   white-space: pre-line;
 }
 
+@media (max-width: 768px) {
+  .commentSection {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
 .commentSection p {
   margin: 0;
 }
