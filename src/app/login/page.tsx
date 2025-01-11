@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 import LoginForm from "../../components/login/LoginForm";
 import styles from "./page.module.css";
 import { Box, Typography, Button, Alert } from "@mui/material";
+import { ALLOWED_DOMAIN } from "@/utils/const";
 
 //import { auth } from "@/lib/FirebaseConfig";
 
 export default function LoginPage() {
   // 状態管理
-  const [email, setEmail] = useState<string>("");
+  const [studentNumber, setstudentNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>(""); // エラーメッセージの状態管理
@@ -25,6 +26,7 @@ export default function LoginPage() {
   // ログインボタンが押されたとき
   const doLogin = () => {
     // Firebaseで用意されているメールアドレスとパスワードでログインするための関数
+    const email = studentNumber + ALLOWED_DOMAIN;
     signInWithEmailAndPassword(auth, email, password) //authが悪いのかも？？
       .then((userCredential) => {
         const user = userCredential.user;
@@ -60,10 +62,10 @@ export default function LoginPage() {
         ログイン
       </Typography>
       <LoginForm
-        email={email}
+        studentNumber={studentNumber}
         password={password}
         showPassword={showPassword}
-        setEmail={setEmail}
+        setEmail={setstudentNumber}
         setPassword={setPassword}
         togglePasswordVisibility={() => setShowPassword(!showPassword)}
         onLogin={doLogin}

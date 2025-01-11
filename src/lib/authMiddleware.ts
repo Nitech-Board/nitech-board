@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { auth } from "firebase-admin";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { allowedDomain } from "@/utils/const";
+import { ALLOWED_DOMAIN } from "@/utils/const";
 
 if (!getApps().length) {
   initializeApp({
@@ -33,7 +33,7 @@ export default async function getFirebaseUid(
     const uid = decodedToken.uid;
     const email = decodedToken.email;
     // メールアドレスのドメインが正しいかどうかを確認
-    if (decodedToken.email_verified && email.endsWith(allowedDomain))
+    if (decodedToken.email_verified && email.endsWith(ALLOWED_DOMAIN))
       return uid;
   } catch (e) {
     console.error(e);

@@ -7,14 +7,14 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { firebaseApp } from "../../lib/FirebaseConfig";
-import { allowedDomain } from "@/utils/const";
+import { ALLOWED_DOMAIN } from "@/utils/const";
 import styles from "./page.module.css";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 
 export default function Register() {
   // useStateでユーザーが入力したメールアドレスとパスワードをemailとpasswordに格納する
-  const [email, setEmail] = useState("");
+  const [studentNumber, setStudentNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
@@ -24,17 +24,8 @@ export default function Register() {
 
   // ユーザーが登録ボタンを押したときにdoRegister関数が実行される
   const doRegister = async () => {
-    // メールアドレスのドメインを制限
-    if (!email.endsWith(allowedDomain)) {
-      Swal.fire({
-        icon: "error",
-        title: "エラー",
-        text: `メールアドレスは ${allowedDomain} のみ使用できます。`,
-      });
-      return;
-    }
-
     try {
+      const email = studentNumber + ALLOWED_DOMAIN;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -66,14 +57,13 @@ export default function Register() {
       <Typography variant="h4" className={styles.title}>
         新規登録
       </Typography>
-      <p>メールアドレスは{allowedDomain}で終わるものを使ってください。</p>
       <Box component="form" className={styles.form}>
         <TextField
-          label="メールアドレス"
-          type="email"
-          value={email}
-          placeholder={allowedDomain}
-          onChange={(e) => setEmail(e.target.value)}
+          label="学籍番号"
+          type="text"
+          value={studentNumber}
+          placeholder={ALLOWED_DOMAIN}
+          onChange={(e) => setStudentNumber(e.target.value)}
           fullWidth
           required
           className={styles.input}
