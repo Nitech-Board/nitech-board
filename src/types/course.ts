@@ -4,6 +4,7 @@ export interface CourseSummary {
   courseNumber: string;
   name: string;
   teacher: string;
+  reviewCount: number;
 }
 
 export type CourseWithNumbers = Course & { courseNumbers: CourseNumber[] };
