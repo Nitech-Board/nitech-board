@@ -1,2 +1,2 @@
 export const APPLICATION_NAME = "Nitech Board";
-export const allowedDomain = "@stn.nitech.ac.jp";
+export const ALLOWED_DOMAIN = "@stn.nitech.ac.jp";

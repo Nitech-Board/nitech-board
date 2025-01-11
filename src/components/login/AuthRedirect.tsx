@@ -17,7 +17,8 @@ export default function AuthRedirect({
       user === null &&
       router &&
       currentPath !== "/login" &&
-      currentPath !== "/register"
+      currentPath !== "/register" &&
+      currentPath !== "/usermgmt"
     ) {
       Swal.fire({
         title: "ログインが必要です",

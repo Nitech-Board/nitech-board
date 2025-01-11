@@ -3,7 +3,7 @@ import { Box, TextField, Button } from "@mui/material";
 import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
-  email: string;
+  studentNumber: string;
   password: string;
   showPassword: boolean;
   setEmail: (email: string) => void;
@@ -13,7 +13,7 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({
-  email,
+  studentNumber,
   password,
   showPassword,
   setEmail,
@@ -23,9 +23,9 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <Box component="form" className={styles.form}>
       <TextField
-        label="メールアドレス"
-        type="email"
-        value={email}
+        label="学籍番号"
+        type="text"
+        value={studentNumber}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
         required

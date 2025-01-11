@@ -1,23 +1,21 @@
-import {
-  CourseDetail,
-  CourseSummary,
-  CourseWithNumbersAndTeacher,
-} from "@/types/course";
+import { CourseDetail, CourseSummary } from "@/types/course";
 import { getPrismaClient } from "@/utils/prisma";
-import { getCourseDetailByCourseNumberQuery } from "@prisma/client/sql";
+import {
+  getCourseDetailByCourseNumberQuery,
+  getCourseListQuery,
+} from "@prisma/client/sql";
 
 const courseListFormatter = (
-  courseRows: CourseWithNumbersAndTeacher[]
+  courseRows: getCourseListQuery.Result[]
 ): CourseSummary[] => {
   const courseList: CourseSummary[] = [];
 
   courseRows.forEach((courseRow) => {
-    courseRow.courseNumbers.forEach((courseNumber) => {
-      courseList.push({
-        name: courseRow.title,
-        courseNumber: courseNumber.number,
-        teacher: courseRow.teacher.lastName + " " + courseRow.teacher.firstName,
-      });
+    courseList.push({
+      name: courseRow.course_title,
+      courseNumber: courseRow.course_number,
+      teacher: courseRow.teacher_last_name + " " + courseRow.teacher_first_name,
+      reviewCount: Number(courseRow.review_count),
     });
   });
 
@@ -26,12 +24,13 @@ const courseListFormatter = (
 
 export const getCourseList = async () => {
   const prisma = getPrismaClient();
-  const courseRows = await prisma.course.findMany({
-    include: {
-      courseNumbers: true,
-      teacher: true,
-    },
-  });
+  // const courseRows = await prisma.course.findMany({
+  //   include: {
+  //     courseNumbers: true,
+  //     teacher: true,
+  //   },
+  // });
+  const courseRows = await prisma.$queryRawTyped(getCourseListQuery());
 
   const courseList = courseListFormatter(courseRows);
   return courseList;
