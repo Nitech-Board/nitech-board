@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { SearchResults } from "../../components/Search/SearchResults";
 import { CourseSummary } from "../../types/course";
 import { SearchForm } from "../../components/Search/SearchForm";
+import { useAuth } from "@/components/provider/AuthProvider";
 
 export default function WebSocketPage() {
   const [courseList, setCourseList] = useState<CourseSummary[] | undefined>(
@@ -12,15 +13,28 @@ export default function WebSocketPage() {
   );
   const [searchResults, setSearchResults] = useState<CourseSummary[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const user = useAuth();
 
   // 初期表示時に授業一覧を取得
   useEffect(() => {
-    fetch("/api/course-list")
-      .then((res) => res.json())
-      .then((data) => {
-        setCourseList(data);
-      });
-  }, []);
+    if (!user) return;
+    const fetchCourseList = async () => {
+      const token = await user.getIdToken();
+      fetch("/api/course-list", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setCourseList(data);
+        });
+    };
+
+    fetchCourseList();
+  }, [user]);
 
   // 子コンポーネントから受け取った検索条件を処理
   const handleSearch = (query: {
