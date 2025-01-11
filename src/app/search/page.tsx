@@ -23,14 +23,22 @@ export default function WebSocketPage() {
   }, []);
 
   // 子コンポーネントから受け取った検索条件を処理
-  const handleSearch = (query: { courseNumber: string; name: string }) => {
+  const handleSearch = (query: {
+    courseNumber: string;
+    name: string;
+    teacher: string;
+  }) => {
     if (!courseList) return;
     const results = funcSearch(query);
     setSearchResults(results);
     setHasSearched(true);
   };
 
-  const funcSearch = (query: { courseNumber: string; name: string }) => {
+  const funcSearch = (query: {
+    courseNumber: string;
+    name: string;
+    teacher: string;
+  }) => {
     return courseList.filter((courseSummary) => {
       const courseNumberMatches = courseSummary.courseNumber.startsWith(
         query.courseNumber
@@ -38,7 +46,9 @@ export default function WebSocketPage() {
 
       const nameMatches = courseSummary.name.includes(query.name); // 科目名の部分一致
 
-      return courseNumberMatches && nameMatches;
+      const teacherMatches = courseSummary.teacher.includes(query.teacher); // 教員名の部分一致
+
+      return courseNumberMatches && nameMatches && teacherMatches;
     });
   };
 
