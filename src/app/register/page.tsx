@@ -62,7 +62,6 @@ export default function Register() {
           label="学籍番号"
           type="text"
           value={studentNumber}
-          placeholder={ALLOWED_DOMAIN}
           onChange={(e) => setStudentNumber(e.target.value)}
           fullWidth
           required
