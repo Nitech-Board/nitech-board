@@ -29,11 +29,6 @@ const ClassData = ({ details }: { details: CourseDetail }) => {
           <CourseTableRow title={"時間割番号"} data={details.courseNumber} />
           <TableRow>
             <TableCell className={styles.tableCellTitle}>シラバス</TableCell>
-            <TableCell>
-              <a href="#" className={styles.tableLink}>
-                シラバスリンク
-              </a>
-            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

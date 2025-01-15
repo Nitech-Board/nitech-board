@@ -1,7 +1,7 @@
 "use client";
 import handleResetPassword from "@/components/usemgmt/resetPasswordHandler";
 import { handleVerifyEmail } from "@/components/usemgmt/verifyEmailHandler";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
 // メールに届いたリンクをクリックしたときに呼ばれるページ
@@ -11,9 +11,10 @@ function AuthPage() {
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode"); // resetPassword, recoverEmail, verifyEmailのいずれか
   const oobCode = searchParams.get("oobCode"); // firebaseが生成したコード
+  const router = useRouter();
 
   useEffect(() => {
-    if (!mode || !oobCode) return;
+    if (!mode || !oobCode || !router) return;
     switch (mode) {
       case "resetPassword":
         handleResetPassword(oobCode);
@@ -23,10 +24,10 @@ function AuthPage() {
         // Recover email
         break;
       case "verifyEmail":
-        handleVerifyEmail(oobCode);
+        handleVerifyEmail(oobCode, router);
         break;
     }
-  }, [mode, oobCode]);
+  }, [mode, oobCode, router]);
 
   return <div />;
 }
