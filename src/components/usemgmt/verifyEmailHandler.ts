@@ -19,13 +19,17 @@ export async function handleVerifyEmail(code: string, router: any) {
   if (result) {
     try {
       await applyActionCode(auth, code); // firebaseの機能でメールアドレスを認証
-      Swal.fire(
+      await Swal.fire(
         "メールアドレス認証完了",
         "メールアドレスを認証しました",
         "success"
       );
     } catch {
-      Swal.fire("エラー", "メールアドレスの認証に失敗しました。", "error");
+      await Swal.fire(
+        "エラー",
+        "メールアドレスの認証に失敗しました。",
+        "error"
+      );
     } finally {
       router.push("/login");
     }
