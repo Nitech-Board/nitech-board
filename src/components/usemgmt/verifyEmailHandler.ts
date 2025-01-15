@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 // メールアドレスの認証を行う
 // メールに届いたメールアドレス確認のリンクをクリックしたときに呼ばれる
-export async function handleVerifyEmail(code: string) {
+export async function handleVerifyEmail(code: string, router: any) {
   // メールアドレスの認証を行うかどうかの確認
   const result = await Swal.fire({
     title: "メールアドレスを認証",
@@ -26,6 +26,8 @@ export async function handleVerifyEmail(code: string) {
       );
     } catch {
       Swal.fire("エラー", "メールアドレスの認証に失敗しました。", "error");
+    } finally {
+      router.push("/login");
     }
   }
 }
